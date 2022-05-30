@@ -21,17 +21,13 @@ public class WoundController {
         this.woundService = woundService;
     }
 
-    @PostMapping
-    public ResponseEntity<Wound> createWound (@RequestBody CreateWoundDto createWoundDto) {
-        final Wound wound = woundService.addWound(createWoundDto);
+    @PostMapping()
+    public ResponseEntity<WoundDto> createWound (@RequestBody CreateWoundDto createWoundDto) {
+        final WoundDto woundDto = woundService.addWound(createWoundDto);
         final URI location = URI.create("/wounds");
-        return ResponseEntity.created(location).body(wound);
-    }
-
-    @PutMapping("{id}")
-    ResponseEntity<WoundDto> addWoundToPatient (@RequestBody Patient patient, @PathVariable Long id) {
-       WoundDto woundDto = woundService.toWoundDto(woundService.addWoundToPatient(patient.getId(), id));
-        return ResponseEntity.ok(woundDto);
+        return ResponseEntity
+                .created(location)
+                .body(woundDto);
     }
 }
 

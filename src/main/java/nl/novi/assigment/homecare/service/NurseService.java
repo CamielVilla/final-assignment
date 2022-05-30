@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.domain.dto.CreateNurseDto;
 import nl.novi.assigment.homecare.domain.dto.CreateWoundDto;
+import nl.novi.assigment.homecare.domain.dto.NurseDto;
 import nl.novi.assigment.homecare.domain.entity.Nurse;
 import nl.novi.assigment.homecare.domain.entity.Wound;
 import nl.novi.assigment.homecare.repository.NurseRepository;
@@ -19,14 +20,24 @@ public class NurseService {
         this.woundService = woundService;
     }
 
-    public Nurse addNurse (CreateNurseDto createNurseDto) {
+    public NurseDto addNurse (CreateNurseDto createNurseDto) {
         Nurse nurse = new Nurse();
         nurse.setName(createNurseDto.getName());
         nurse.setBigNumber(createNurseDto.getBigNumber());
         nurse.setEmail(createNurseDto.getEmail());
         nurse.setPassword(createNurseDto.getPassword());
         Nurse savedNurse = nurseRepository.save(nurse);
-        return savedNurse;
+        return toNurseDto(savedNurse);
+    }
+
+    public NurseDto toNurseDto (Nurse nurse){
+        NurseDto nurseDto = new NurseDto();
+        nurseDto.setName(nurse.getName());
+        nurseDto.setEmail(nurse.getEmail());
+        nurseDto.setId(nurse.getId());
+        nurseDto.setBigNumber(nurse.getBigNumber());
+        return nurseDto;
+
     }
 
 

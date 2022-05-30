@@ -13,6 +13,19 @@ public class Patient {
     private String name;
     private String dateOfBirth;
     private String password;
+    private String email;
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "patient")
+    private List<Wound> wounds;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPassword() {
         return password;
@@ -22,9 +35,7 @@ public class Patient {
         this.password = password;
     }
 
-    @JsonIgnore
-    @OneToMany (mappedBy = "patient")
-    private List<Wound> wounds;
+
 
     public List<Wound> getWounds() {
         return wounds;
