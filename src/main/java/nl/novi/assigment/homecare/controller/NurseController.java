@@ -1,6 +1,7 @@
 package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.domain.dto.CreateNurseDto;
+import nl.novi.assigment.homecare.domain.dto.NurseDto;
 import nl.novi.assigment.homecare.domain.entity.Nurse;
 import nl.novi.assigment.homecare.service.NurseService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/nurses")
 public class NurseController {
     private final NurseService nurseService;
 
@@ -19,8 +20,8 @@ public class NurseController {
     }
 
     @PostMapping
-    public ResponseEntity<Nurse> addNurse (@RequestBody CreateNurseDto createNurseDto) {
-        final Nurse nurse = nurseService.addNurse(createNurseDto);
-        return ResponseEntity.ok(nurse);
+    public ResponseEntity<NurseDto> addNurse (@RequestBody CreateNurseDto createNurseDto) {
+        final NurseDto nurseDto = nurseService.addNurse(createNurseDto);
+        return ResponseEntity.ok(nurseDto);
     }
 }

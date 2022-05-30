@@ -2,7 +2,6 @@ package nl.novi.assigment.homecare.domain.dto;
 
 import nl.novi.assigment.homecare.domain.entity.Patient;
 
-import javax.persistence.ManyToOne;
 
 public class CreateWoundDto {
 
@@ -10,7 +9,15 @@ public class CreateWoundDto {
     private String woundName;
     private String woundLocation;
     private Patient patient;
+    private Long patientId;
 
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
 
     public String getTreatmentPlan() {
         return treatmentPlan;

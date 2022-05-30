@@ -3,7 +3,6 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.domain.dto.CreateWoundDto;
 import nl.novi.assigment.homecare.domain.dto.WoundDto;
-import nl.novi.assigment.homecare.domain.entity.Patient;
 import nl.novi.assigment.homecare.domain.entity.Wound;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
@@ -24,22 +23,14 @@ public class WoundService {
         return wound;
     }
 
-    public Wound addWound(CreateWoundDto createWoundDto) {
+    public WoundDto addWound(CreateWoundDto createWoundDto) {
         Wound wound = new Wound();
         wound.setWoundName(createWoundDto.getWoundName());
         wound.setWoundLocation(createWoundDto.getWoundLocation());
-        wound.setPatient(createWoundDto.getPatient());
         wound.setTreatmentPlan(createWoundDto.getTreatmentPlan());
+        wound.setPatient(patientService.getPatientById(createWoundDto.getPatientId()));
         Wound savedWound = woundRepository.save(wound);
-        return savedWound;
-    }
-
-    public Wound addWoundToPatient(Long woundId, Long patientId){
-        Patient patient = patientService.getPatientById(patientId);
-        Wound wound = getWoundById(woundId);
-        wound.setPatient(patient);
-        woundRepository.save(wound);
-        return wound;
+        return toWoundDto(savedWound);
     }
 
     public WoundDto toWoundDto (Wound wound){

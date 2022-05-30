@@ -1,5 +1,6 @@
 package nl.novi.assigment.homecare.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import nl.novi.assigment.homecare.domain.entity.Wound;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class PatientDto {
     private String name;
     private String dateOfBirth;
     private String email;
-    private String password;
+
     private List<Wound> wounds;
 
     public String getDateOfBirth() {
@@ -27,14 +28,6 @@ public class PatientDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Wound> getWounds() {
