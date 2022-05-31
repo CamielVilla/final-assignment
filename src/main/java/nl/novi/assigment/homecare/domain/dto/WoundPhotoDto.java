@@ -2,15 +2,16 @@ package nl.novi.assigment.homecare.domain.dto;
 
 import nl.novi.assigment.homecare.domain.entity.Wound;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class WoundPhotoDto {
 
     private Long id;
     private String nurseAssessment;
-    private Date assessmentDate;
+    private LocalDateTime assessmentDate;
     private String patientComment;
-    private Date photoDate;
+    private LocalDateTime photoDate;
     private Wound wound;
 
     public Long getId() {
@@ -29,11 +30,11 @@ public class WoundPhotoDto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public Date getAssessmentDate() {
+    public LocalDateTime getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(Date assessmentDate) {
+    public void setAssessmentDate(LocalDateTime assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -45,11 +46,11 @@ public class WoundPhotoDto {
         this.patientComment = patientComment;
     }
 
-    public Date getPhotoDate() {
+    public LocalDateTime getPhotoDate() {
         return photoDate;
     }
 
-    public void setPhotoDate(Date photoDate) {
+    public void setPhotoDate(LocalDateTime photoDate) {
         this.photoDate = photoDate;
     }
 

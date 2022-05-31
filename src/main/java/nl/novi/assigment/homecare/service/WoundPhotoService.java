@@ -7,6 +7,9 @@ import nl.novi.assigment.homecare.domain.entity.WoundPhoto;
 import nl.novi.assigment.homecare.repository.WoundPhotoRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class WoundPhotoService {
     private final WoundPhotoRepository woundPhotoRepository;
@@ -20,7 +23,7 @@ public class WoundPhotoService {
 
     public WoundPhotoDto addWoundPhoto(CreateWoundPhotoDto createWoundPhotoDto) {
         WoundPhoto woundPhoto = new WoundPhoto();
-        woundPhoto.setPhotoDate(createWoundPhotoDto.getPhotoDate());
+        woundPhoto.setPhotoDate(LocalDateTime.now());
         woundPhoto.setPatientComment(createWoundPhotoDto.getPatientComment());
         woundPhoto.setWound(woundService.getWoundById(createWoundPhotoDto.getWoundId()));
         woundPhotoRepository.save(woundPhoto);
@@ -36,5 +39,14 @@ public class WoundPhotoService {
         woundPhotoDto.setPhotoDate(woundPhoto.getPhotoDate());
         woundPhotoDto.setWound(woundPhoto.getWound());
         return woundPhotoDto;
+    }
+
+
+    public WoundPhotoDto reviewWoundPhoto(CreateWoundPhotoDto createWoundPhotoDto, Long id) {
+        WoundPhoto woundPhoto = woundPhotoRepository.findById(id).get();
+        woundPhoto.setNurseAssessment(createWoundPhotoDto.getNurseAssessment());
+        woundPhoto.setAssessmentDate(LocalDateTime.now());
+        woundPhotoRepository.save(woundPhoto);
+        return toWoundPhotoDto(woundPhoto);
     }
 }

@@ -5,10 +5,7 @@ import nl.novi.assigment.homecare.domain.dto.WoundPhotoDto;
 import nl.novi.assigment.homecare.domain.entity.WoundPhoto;
 import nl.novi.assigment.homecare.service.WoundPhotoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -28,6 +25,12 @@ public class WoundPhotoController {
         return ResponseEntity
                 .created(location)
                 .body(woundPhotoDto);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<WoundPhotoDto> reviewWoundPhoto (@RequestBody CreateWoundPhotoDto createWoundPhotoDto, @PathVariable Long id) {
+        final WoundPhotoDto woundPhotoDto = woundPhotoService.reviewWoundPhoto(createWoundPhotoDto, id);
+        return ResponseEntity.ok(woundPhotoDto);
     }
 
 

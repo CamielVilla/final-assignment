@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -12,9 +13,9 @@ public class WoundPhoto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nurseAssessment;
-    private Date assessmentDate;
+    private LocalDateTime assessmentDate;
     private String patientComment;
-    private Date photoDate;
+    private LocalDateTime photoDate;
 
     @ManyToOne
     @JsonIgnore
@@ -38,11 +39,11 @@ public class WoundPhoto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public Date getAssessmentDate() {
+    public LocalDateTime getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(Date assessmentDate) {
+    public void setAssessmentDate(LocalDateTime assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -54,11 +55,11 @@ public class WoundPhoto {
         this.patientComment = patientComment;
     }
 
-    public Date getPhotoDate() {
+    public LocalDateTime getPhotoDate() {
         return photoDate;
     }
 
-    public void setPhotoDate(Date photoDate) {
+    public void setPhotoDate(LocalDateTime photoDate) {
         this.photoDate = photoDate;
     }
 
