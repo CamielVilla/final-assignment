@@ -12,6 +12,7 @@ public class PatientDto {
     private String dateOfBirth;
     private String email;
 
+
     private List<Wound> wounds;
 
     public String getDateOfBirth() {
