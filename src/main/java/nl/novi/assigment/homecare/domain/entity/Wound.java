@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Wound {
@@ -18,6 +19,18 @@ public class Wound {
     @JoinColumn (name = "patient_id")
     private Patient patient;
 
+    @OneToMany (mappedBy = "wound")
+    @JsonIgnore
+    private List<WoundPhoto> woundPhotos;
+
+
+    public List<WoundPhoto> getWoundPhotos() {
+        return woundPhotos;
+    }
+
+    public void setWoundPhotos(List<WoundPhoto> woundPhotos) {
+        this.woundPhotos = woundPhotos;
+    }
 
     public Long getId() {
         return id;

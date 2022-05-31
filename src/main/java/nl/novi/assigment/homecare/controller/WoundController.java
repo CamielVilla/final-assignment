@@ -16,12 +16,11 @@ import java.net.URI;
 public class WoundController {
 
     private final WoundService woundService;
-
     public WoundController(WoundService woundService) {
         this.woundService = woundService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<WoundDto> createWound (@RequestBody CreateWoundDto createWoundDto) {
         final WoundDto woundDto = woundService.addWound(createWoundDto);
         final URI location = URI.create("/wounds");
