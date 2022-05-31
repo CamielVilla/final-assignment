@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
-    private final NurseService nurseService;
-    private final PatientService patientService;
 
-    public AdminService(AdminRepository adminRepository, NurseService nurseService, PatientService patientService) {
+    public AdminService(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
-        this.nurseService = nurseService;
-        this.patientService = patientService;
     }
 
     public AdminDto createAdmin(CreateAdminDto createAdminDto) {
@@ -35,4 +31,5 @@ public class AdminService {
         adminDto.setPassword(admin.getPassword());
         return adminDto;
     }
+
 }
