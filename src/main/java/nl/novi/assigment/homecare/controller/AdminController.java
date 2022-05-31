@@ -6,6 +6,7 @@ import nl.novi.assigment.homecare.domain.dto.CreateAdminDto;
 import nl.novi.assigment.homecare.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<AdminDto> createAdmin (CreateAdminDto createAdminDto){
+    public ResponseEntity<AdminDto> createAdmin (@RequestBody  CreateAdminDto createAdminDto){
         final AdminDto adminDto = adminService.createAdmin(createAdminDto);
         final URI location = URI.create("admin");
         return ResponseEntity

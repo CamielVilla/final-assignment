@@ -13,11 +13,9 @@ import org.springframework.stereotype.Service;
 public class NurseService {
 
     private NurseRepository nurseRepository;
-    private WoundService woundService;
 
-    public NurseService(NurseRepository nurseRepository, WoundService woundService) {
+    public NurseService(NurseRepository nurseRepository) {
         this.nurseRepository = nurseRepository;
-        this.woundService = woundService;
     }
 
     public NurseDto addNurse (CreateNurseDto createNurseDto) {
@@ -37,7 +35,6 @@ public class NurseService {
         nurseDto.setId(nurse.getId());
         nurseDto.setBigNumber(nurse.getBigNumber());
         return nurseDto;
-
     }
 
 

@@ -6,8 +6,6 @@ import nl.novi.assigment.homecare.domain.dto.WoundPhotoDto;
 import nl.novi.assigment.homecare.domain.entity.WoundPhoto;
 import nl.novi.assigment.homecare.repository.WoundPhotoRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service

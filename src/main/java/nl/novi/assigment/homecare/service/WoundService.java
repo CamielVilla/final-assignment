@@ -32,7 +32,6 @@ public class WoundService {
         Wound savedWound = woundRepository.save(wound);
         return toWoundDto(savedWound);
     }
-
     public WoundDto toWoundDto (Wound wound){
         WoundDto woundDto = new WoundDto();
         woundDto.setId(wound.getId());
