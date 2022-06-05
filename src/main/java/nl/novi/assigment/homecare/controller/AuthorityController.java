@@ -23,8 +23,8 @@ public class AuthorityController {
     @Autowired
     JwtService jwtService;
 
-    @PostMapping("nurse")
-    public ResponseEntity<Object> signInNurse(@RequestBody AuthorityDto authorityDto) {
+    @PostMapping()
+    public ResponseEntity<Object> signIn(@RequestBody AuthorityDto authorityDto) {
         UsernamePasswordAuthenticationToken up =
                 new UsernamePasswordAuthenticationToken(authorityDto.getEmail(), authorityDto.getPassword());
         Authentication auth = authManager.authenticate(up);
@@ -36,29 +36,29 @@ public class AuthorityController {
                 .body(token);
     }
 
-    @PostMapping("admin")
-    public ResponseEntity<Object> signInAdmin(@RequestBody AuthorityDto authorityDto) {
-        UsernamePasswordAuthenticationToken up =
-                new UsernamePasswordAuthenticationToken(authorityDto.getEmail(), authorityDto.getPassword());
-        Authentication auth = authManager.authenticate(up);
-
-        UserDetails ud = (UserDetails) auth.getPrincipal();
-        String token = jwtService.generateToken(ud);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .body(token);
-    }
-
-    @PostMapping("patient")
-    public ResponseEntity<Object> signInPatient(@RequestBody AuthorityDto authorityDto) {
-        UsernamePasswordAuthenticationToken up =
-                new UsernamePasswordAuthenticationToken(authorityDto.getEmail(), authorityDto.getPassword());
-        Authentication auth = authManager.authenticate(up);
-
-        UserDetails ud = (UserDetails) auth.getPrincipal();
-        String token = jwtService.generateToken(ud);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .body(token);
-    }
+//    @PostMapping("admin")
+//    public ResponseEntity<Object> signInAdmin(@RequestBody AuthorityDto authorityDto) {
+//        UsernamePasswordAuthenticationToken up =
+//                new UsernamePasswordAuthenticationToken(authorityDto.getEmail(), authorityDto.getPassword());
+//        Authentication auth = authManager.authenticate(up);
+//
+//        UserDetails ud = (UserDetails) auth.getPrincipal();
+//        String token = jwtService.generateToken(ud);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                .body(token);
+//    }
+//
+//    @PostMapping("patient")
+//    public ResponseEntity<Object> signInPatient(@RequestBody AuthorityDto authorityDto) {
+//        UsernamePasswordAuthenticationToken up =
+//                new UsernamePasswordAuthenticationToken(authorityDto.getEmail(), authorityDto.getPassword());
+//        Authentication auth = authManager.authenticate(up);
+//
+//        UserDetails ud = (UserDetails) auth.getPrincipal();
+//        String token = jwtService.generateToken(ud);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+//                .body(token);
+//    }
 }

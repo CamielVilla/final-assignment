@@ -13,6 +13,8 @@ public class Admin {
     private String name;
     private String email;
     private String password;
+    private String role;
+    private int enabled;
 
     public Long getId() {
         return id;

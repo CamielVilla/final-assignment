@@ -39,14 +39,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
+    protected void configure (AuthenticationManagerBuilder authentication) throws Exception{
+        authentication
                 .jdbcAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?");
+                .usersByUsernameQuery("select email, password, enabled from nurse where email=?")
+                .authoritiesByUsernameQuery("select email, role from nurse where email=?");
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -54,9 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().antMatchers("/admin/**").hasAuthority("ADMIN")
-                .and()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/inlog/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .authorizeRequests().antMatchers("/nurses/**").hasAnyAuthority("NURSE", "ADMIN")
                 .and()
