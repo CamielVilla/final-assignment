@@ -16,6 +16,8 @@ public class Nurse{
     protected String email;
     protected String password;
     private int bigNumber;
+    private String role;
+    private int enabled;
 
     public Long getId() {
         return id;

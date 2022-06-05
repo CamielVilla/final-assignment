@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("woundphoto")
+@RequestMapping("woundphotos")
 public class WoundPhotoController {
 
     private final WoundPhotoService woundPhotoService;
@@ -21,7 +21,7 @@ public class WoundPhotoController {
     @PostMapping
     public ResponseEntity<WoundPhotoDto> addWoundPhoto (@RequestBody  CreateWoundPhotoDto createWoundPhotoDto){
         final WoundPhotoDto woundPhotoDto = woundPhotoService.addWoundPhoto(createWoundPhotoDto);
-        final URI location = URI.create("woundphoto");
+        final URI location = URI.create("woundphotos");
         return ResponseEntity
                 .created(location)
                 .body(woundPhotoDto);

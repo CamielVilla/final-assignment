@@ -14,6 +14,8 @@ public class Patient {
     private String dateOfBirth;
     private String password;
     private String email;
+    private String role;
+    private int enabled;
 
     @JsonIgnore
     @OneToMany (mappedBy = "patient")

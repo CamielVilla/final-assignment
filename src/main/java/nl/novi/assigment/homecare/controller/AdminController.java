@@ -29,5 +29,4 @@ public class AdminController {
                 .created(location)
                 .body(adminDto);
     }
-
 }
