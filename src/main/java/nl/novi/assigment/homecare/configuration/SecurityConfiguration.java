@@ -13,14 +13,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.sql.DataSource;
+
 @Configuration
-//@EnableWebSecurity Deze aan?
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     JwtService jwtService;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -32,53 +38,45 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.userDetailsService();
     }
 
-    @Override
+    @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .withUser("camielvilla@homecare.nl")
-                .password("{noop}AdminPassword")
-                .roles("ADMIN")
-                .and()
-                .withUser("nurse@homecare.nl")
-                .password("{noop}NursePassword")
-                .roles("NURSE")
-                .and()
-                .withUser("patient@gmail.com")
-                .password("{noop}PatientPassword")
-                .roles("PATIENT");
+                .jdbcAuthentication()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled from users where username=?")
+                .authoritiesByUsernameQuery("select username, role from users where username=?");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
-                .and()
+                .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/inlog/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/nurses/**").hasAnyRole("NURSE", "ADMIN")
+                .authorizeRequests().antMatchers("/nurses/**").hasAnyAuthority("NURSE", "ADMIN")
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/home").permitAll()
                 .and()
                 .authorizeRequests().antMatchers( "/patients/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/wounds/**").hasAnyRole("NURSE", "ADMIN")
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/wounds/**").hasAnyAuthority("NURSE", "ADMIN")
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.PUT, "/wounds/**").hasAnyRole("NURSE", "ADMIN")
+                .authorizeRequests().antMatchers(HttpMethod.PUT, "/wounds/**").hasAnyAuthority("NURSE", "ADMIN")
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.DELETE, "/wounds/**").hasAnyRole("NURSE", "ADMIN")
+                .authorizeRequests().antMatchers(HttpMethod.DELETE, "/wounds/**").hasAnyAuthority("NURSE", "ADMIN")
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/wounds/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/woundphotos/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/woundphotos/**").hasAnyRole("NURSE", "PATIENT")
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/woundphotos/**").hasAnyAuthority("NURSE", "PATIENT")
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.PUT, "/woundphotos/**").hasRole("NURSE")
+                .authorizeRequests().antMatchers(HttpMethod.PUT, "/woundphotos/**").hasAuthority("NURSE")
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
