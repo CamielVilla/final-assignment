@@ -1,20 +1,11 @@
 package nl.novi.assigment.homecare.domain.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
-public class Nurse{
 
-    @Id
-    @GeneratedValue ( strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    protected String name;
-    protected String email;
-    protected String password;
+@Entity (name = "Nurse")
+@DiscriminatorValue("nurse")
+public class Nurse extends User{
     private int bigNumber;
     private String role;
     private int enabled;

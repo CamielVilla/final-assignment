@@ -5,6 +5,8 @@ public class CreateAdminDto {
     private String name;
     private String email;
     private String password;
+    private String role;
+    private int enabled;
 
     public String getName() {
         return name;
