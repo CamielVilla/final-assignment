@@ -8,22 +8,5 @@ import javax.persistence.Id;
 @Entity (name = "Admin")
 @DiscriminatorValue("admin")
 public class Admin extends User{
-    private String role;
-    private int enabled;
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public int getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(int enabled) {
-        this.enabled = enabled;
-    }
 }

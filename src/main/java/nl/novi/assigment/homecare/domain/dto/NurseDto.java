@@ -5,7 +5,25 @@ public class NurseDto {
     private String name;
     private String email;
     private String password;
+    private String role;
+    private int enabled;
     private int bigNumber;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
     public Long getId() {
         return id;

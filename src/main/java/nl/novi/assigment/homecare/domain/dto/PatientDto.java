@@ -11,7 +11,24 @@ public class PatientDto {
     private String name;
     private String dateOfBirth;
     private String email;
+    private String role;
+    private int enabled;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
     private List<Wound> wounds;
 

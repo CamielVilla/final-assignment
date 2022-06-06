@@ -19,6 +19,9 @@ public class PatientService {
         patient.setName(createPatientDto.getName());
         patient.setDateOfBirth(createPatientDto.getDateOfBirth());
         patient.setPassword(createPatientDto.getPassword());
+        patient.setEmail(createPatientDto.getEmail());
+        patient.setRole("PATIENT");
+        patient.setEnabled(1);
         Patient savedPatient = patientRepository.save(patient);
         return toPatientDto(savedPatient);
     }
@@ -29,6 +32,8 @@ public class PatientService {
         patientDto.setEmail(patient.getEmail());
         patientDto.setDateOfBirth(patient.getDateOfBirth());
         patientDto.setWounds(patient.getWounds());
+        patientDto.setRole(patient.getRole());
+        patientDto.setEnabled(patient.getEnabled());
         return patientDto;
     }
 
