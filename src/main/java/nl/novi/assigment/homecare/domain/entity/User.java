@@ -12,6 +12,24 @@ public abstract class User {
     private String name;
     private String email;
     private String password;
+    private String role;
+    private int enabled;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
     public String getEmail() {
         return email;

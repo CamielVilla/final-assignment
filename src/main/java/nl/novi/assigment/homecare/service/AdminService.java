@@ -3,15 +3,15 @@ package nl.novi.assigment.homecare.service;
 import nl.novi.assigment.homecare.domain.dto.AdminDto;
 import nl.novi.assigment.homecare.domain.dto.CreateAdminDto;
 import nl.novi.assigment.homecare.domain.entity.Admin;
-import nl.novi.assigment.homecare.repository.UserRepository;
+import nl.novi.assigment.homecare.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
-    private final UserRepository userRepository;
+ private final AdminRepository adminRepository;
 
-    public AdminService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AdminService(AdminRepository adminRepository) {
+        this.adminRepository = adminRepository;
     }
 
     public AdminDto createAdmin(CreateAdminDto createAdminDto) {
@@ -21,7 +21,7 @@ public class AdminService {
         admin.setPassword(createAdminDto.getPassword());
         admin.setRole("ADMIN");
         admin.setEnabled(1);
-        userRepository.save(admin);
+        adminRepository.save(admin);
         return toAdminDto(admin);
     }
 
