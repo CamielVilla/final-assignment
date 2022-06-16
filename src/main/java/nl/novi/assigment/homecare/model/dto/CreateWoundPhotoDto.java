@@ -14,7 +14,6 @@ public class CreateWoundPhotoDto {
     private String patientComment;
     private LocalDateTime photoDate;
     private Wound wound;
-    private Long woundId;
     private FileUploadResponse file;
 
     public FileUploadResponse getFile() {
@@ -65,11 +64,4 @@ public class CreateWoundPhotoDto {
         this.wound = wound;
     }
 
-    public Long getWoundId() {
-        return woundId;
-    }
-
-    public void setWoundId(Long woundId) {
-        this.woundId = woundId;
-    }
 }

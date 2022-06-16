@@ -1,9 +1,6 @@
 package nl.novi.assigment.homecare.controller;
 
-import nl.novi.assigment.homecare.model.dto.CreatePatientDto;
-import nl.novi.assigment.homecare.model.dto.CreateWoundDto;
-import nl.novi.assigment.homecare.model.dto.PatientDto;
-import nl.novi.assigment.homecare.model.dto.WoundDto;
+import nl.novi.assigment.homecare.model.dto.*;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.service.PatientService;
@@ -55,16 +52,10 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
-    @PutMapping("{id}/wound")
-    public ResponseEntity<PatientDto> createWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
+    @PostMapping("{id}/wound")
+    public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
         PatientDto patientDto = patientService.getPatientById(id);
-//        List<Wound> wounds = patientDto.getWounds();
-        patientService.addWoundToPatient(id, createWoundDto);
+        patientService.addWoundToPatient(patientDto.getId(), createWoundDto);
         return ResponseEntity.ok(patientDto);
-//        final URI location = URI.create("wounds");
-//        return ResponseEntity
-//                .created(location)
-//                .body(woundDto);
     }
-
 }

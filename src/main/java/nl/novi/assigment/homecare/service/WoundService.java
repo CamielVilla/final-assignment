@@ -64,6 +64,7 @@ public class WoundService {
         List<WoundPhoto> woundPhotos = woundDto.getWoundPhotos();
         WoundPhoto woundPhoto = new WoundPhoto();
         woundPhoto.setPhotoDate(LocalDateTime.now());
+        woundPhoto.setWound(toWound(woundDto));
         woundPhoto.setPatientComment(createWoundPhotoDto.getPatientComment());
         woundPhoto.setFile(createWoundPhotoDto.getFile());
         woundPhotoRepository.save(woundPhoto);
@@ -72,11 +73,5 @@ public class WoundService {
         return (toWoundDto(savedWound));
     }
 
-            woundPhotoDto.setId(woundPhoto.getId());
-        woundPhotoDto.setNurseAssessment(woundPhoto.getNurseAssessment());
-        woundPhotoDto.setAssessmentDate(woundPhoto.getAssessmentDate());
-        woundPhotoDto.setPatientComment(woundPhoto.getPatientComment());
-        woundPhotoDto.setPhotoDate(woundPhoto.getPhotoDate());
-        woundPhotoDto.setWound(woundPhoto.getWound());
 
 }

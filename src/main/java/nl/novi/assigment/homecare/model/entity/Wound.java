@@ -19,8 +19,7 @@ public class Wound {
     @JoinColumn (name = "patient_id")
     private Patient patient;
 
-    @OneToMany (mappedBy = "wound")
-
+    @OneToMany (mappedBy = "wound", fetch = FetchType.EAGER)
     private List<WoundPhoto> woundPhotos;
 
 

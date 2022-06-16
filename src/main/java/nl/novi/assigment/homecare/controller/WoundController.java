@@ -2,6 +2,8 @@ package nl.novi.assigment.homecare.controller;
 
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundDto;
+import nl.novi.assigment.homecare.model.dto.CreateWoundPhotoDto;
+import nl.novi.assigment.homecare.model.dto.PatientDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Patient;
@@ -32,9 +34,19 @@ public class WoundController {
 //                .body(woundDto);
 //    }
 
+
+
     @GetMapping("/{id}")
     public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
        return ResponseEntity.ok(woundService.getWoundById(id));
+    }
+
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<WoundDto> addWoundPhoto (@RequestBody CreateWoundPhotoDto createWoundPhotoDto, @PathVariable Long id){
+        WoundDto woundDto = woundService.getWoundById(id);
+        woundService.addWoundPhotoToWound(woundDto.getId(), createWoundPhotoDto);
+        return ResponseEntity.ok(woundDto);
+
     }
 }
 

@@ -28,7 +28,6 @@ public class WoundPhotoService {
         WoundPhoto woundPhoto = new WoundPhoto();
         woundPhoto.setPhotoDate(LocalDateTime.now());
         woundPhoto.setPatientComment(createWoundPhotoDto.getPatientComment());
-        woundPhoto.setWound(woundService.toWound(woundService.getWoundById(createWoundPhotoDto.getWoundId())));
         woundPhotoRepository.save(woundPhoto);
         return toWoundPhotoDto(woundPhoto);
     }
