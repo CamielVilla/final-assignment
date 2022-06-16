@@ -1,4 +1,4 @@
-package nl.novi.assigment.homecare.domain.entity;
+package nl.novi.assigment.homecare.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +12,7 @@ public class Patient extends User {
     private String dateOfBirth;
 
     @JsonIgnore
-    @OneToMany (mappedBy = "patient")
+    @OneToMany (mappedBy = "patient", fetch = FetchType.EAGER)
     private List<Wound> wounds;
 
 

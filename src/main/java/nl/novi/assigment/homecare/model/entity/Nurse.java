@@ -1,4 +1,4 @@
-package nl.novi.assigment.homecare.domain.entity;
+package nl.novi.assigment.homecare.model.entity;
 
 import javax.persistence.*;
 

@@ -1,19 +1,28 @@
-package nl.novi.assigment.homecare.domain.entity;
-import javax.persistence.*;
+package nl.novi.assigment.homecare.model.dto;
 
-@Entity(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
-public abstract class User {
+import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
+import nl.novi.assigment.homecare.model.entity.Wound;
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+import java.util.List;
+
+public class PatientDto {
+
     private Long id;
     private String name;
+    private String dateOfBirth;
     private String email;
-    private String password;
     private String role;
     private int enabled;
+    private String password;
+    private List<Wound> wounds;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getRole() {
         return role;
@@ -31,6 +40,16 @@ public abstract class User {
         this.enabled = enabled;
     }
 
+
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -39,12 +58,12 @@ public abstract class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public List<Wound> getWounds() {
+        return wounds;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setWounds(List<Wound> wounds) {
+        this.wounds = wounds;
     }
 
     public Long getId() {

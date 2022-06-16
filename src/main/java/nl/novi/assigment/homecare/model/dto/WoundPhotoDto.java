@@ -1,21 +1,25 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.domain.entity.Wound;
+import nl.novi.assigment.homecare.model.entity.Wound;
 
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class CreateWoundPhotoDto {
+public class WoundPhotoDto {
 
+    private Long id;
     private String nurseAssessment;
-    private Date assessmentDate;
+    private LocalDateTime assessmentDate;
     private String patientComment;
     private LocalDateTime photoDate;
     private Wound wound;
-    private Long woundId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNurseAssessment() {
         return nurseAssessment;
@@ -25,11 +29,11 @@ public class CreateWoundPhotoDto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public Date getAssessmentDate() {
+    public LocalDateTime getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(Date assessmentDate) {
+    public void setAssessmentDate(LocalDateTime assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -55,13 +59,5 @@ public class CreateWoundPhotoDto {
 
     public void setWound(Wound wound) {
         this.wound = wound;
-    }
-
-    public Long getWoundId() {
-        return woundId;
-    }
-
-    public void setWoundId(Long woundId) {
-        this.woundId = woundId;
     }
 }

@@ -1,11 +1,9 @@
 package nl.novi.assigment.homecare.service;
 
 
-import nl.novi.assigment.homecare.domain.dto.CreateNurseDto;
-import nl.novi.assigment.homecare.domain.dto.CreateWoundDto;
-import nl.novi.assigment.homecare.domain.dto.NurseDto;
-import nl.novi.assigment.homecare.domain.entity.Nurse;
-import nl.novi.assigment.homecare.domain.entity.Wound;
+import nl.novi.assigment.homecare.model.dto.CreateNurseDto;
+import nl.novi.assigment.homecare.model.dto.NurseDto;
+import nl.novi.assigment.homecare.model.entity.Nurse;
 import nl.novi.assigment.homecare.repository.NurseRepository;
 import org.springframework.stereotype.Service;
 

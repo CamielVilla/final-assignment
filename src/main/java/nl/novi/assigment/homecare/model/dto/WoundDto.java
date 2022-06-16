@@ -1,14 +1,25 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.domain.entity.Patient;
+import nl.novi.assigment.homecare.model.entity.Patient;
+import nl.novi.assigment.homecare.model.entity.WoundPhoto;
+
+import java.util.List;
 
 public class WoundDto {
     private Long id;
     private String treatmentPlan;
     private String woundName;
     private String woundLocation;
-
     private Patient patient;
+    private List<WoundPhoto> woundPhotos;
+
+    public List<WoundPhoto> getWoundPhotos() {
+        return woundPhotos;
+    }
+
+    public void setWoundPhotos(List<WoundPhoto> woundPhotos) {
+        this.woundPhotos = woundPhotos;
+    }
 
     public Long getId() {
         return id;

@@ -1,18 +1,38 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.entity;
 
-import nl.novi.assigment.homecare.domain.entity.Wound;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class WoundPhotoDto {
+@Entity
+public class WoundPhoto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nurseAssessment;
     private LocalDateTime assessmentDate;
     private String patientComment;
     private LocalDateTime photoDate;
+
+    @OneToOne
+    private FileUploadResponse file;
+
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn (name = "wound_id")
     private Wound wound;
+
+
+    public FileUploadResponse getFile() {
+        return file;
+    }
+
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
+    }
 
     public Long getId() {
         return id;

@@ -1,4 +1,4 @@
-package nl.novi.assigment.homecare.domain.entity;
+package nl.novi.assigment.homecare.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,8 +19,7 @@ public class Wound {
     @JoinColumn (name = "patient_id")
     private Patient patient;
 
-    @OneToMany (mappedBy = "wound")
-    @JsonIgnore
+    @OneToMany (mappedBy = "wound", fetch = FetchType.EAGER)
     private List<WoundPhoto> woundPhotos;
 
 

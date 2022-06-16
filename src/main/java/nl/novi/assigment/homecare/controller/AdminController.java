@@ -1,8 +1,8 @@
 package nl.novi.assigment.homecare.controller;
 
 
-import nl.novi.assigment.homecare.domain.dto.AdminDto;
-import nl.novi.assigment.homecare.domain.dto.CreateAdminDto;
+import nl.novi.assigment.homecare.model.dto.AdminDto;
+import nl.novi.assigment.homecare.model.dto.CreateAdminDto;
 import nl.novi.assigment.homecare.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
