@@ -1,13 +1,13 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
-public class AdminDto {
-
+public class NurseDto {
     private Long id;
     private String name;
     private String email;
     private String password;
     private String role;
     private int enabled;
+    private int bigNumber;
 
     public String getRole() {
         return role;
@@ -55,5 +55,13 @@ public class AdminDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getBigNumber() {
+        return bigNumber;
+    }
+
+    public void setBigNumber(int bigNumber) {
+        this.bigNumber = bigNumber;
     }
 }

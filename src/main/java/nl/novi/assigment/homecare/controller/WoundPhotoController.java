@@ -1,11 +1,12 @@
 package nl.novi.assigment.homecare.controller;
 
-import nl.novi.assigment.homecare.domain.dto.CreateWoundPhotoDto;
-import nl.novi.assigment.homecare.domain.dto.WoundPhotoDto;
-import nl.novi.assigment.homecare.domain.entity.WoundPhoto;
+import nl.novi.assigment.homecare.model.dto.CreateWoundPhotoDto;
+import nl.novi.assigment.homecare.model.dto.WoundPhotoDto;
+import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.service.WoundPhotoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 
@@ -14,8 +15,12 @@ import java.net.URI;
 public class WoundPhotoController {
 
     private final WoundPhotoService woundPhotoService;
-    public WoundPhotoController(WoundPhotoService woundPhotoService) {
+    private final PhotoController photoController;
+
+
+    public WoundPhotoController(WoundPhotoService woundPhotoService, PhotoController photoController) {
         this.woundPhotoService = woundPhotoService;
+        this.photoController = photoController;
     }
 
     @PostMapping
@@ -33,5 +38,13 @@ public class WoundPhotoController {
         return ResponseEntity.ok(woundPhotoDto);
     }
 
+
+    @PostMapping("/{id}/photo")
+    public void assignPhotoToWoundPhoto(@PathVariable Long id, @RequestBody MultipartFile file){
+
+        FileUploadResponse photo = photoController.singleFileUpload(file);
+
+        woundPhotoService.assignPhotoToWoundPhoto(photo.getFileName(), id);
+    }
 
 }

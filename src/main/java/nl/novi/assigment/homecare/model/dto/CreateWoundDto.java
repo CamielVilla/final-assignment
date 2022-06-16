@@ -1,6 +1,9 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.domain.entity.Patient;
+import nl.novi.assigment.homecare.model.entity.Patient;
+import nl.novi.assigment.homecare.model.entity.WoundPhoto;
+
+import java.util.List;
 
 
 public class CreateWoundDto {
@@ -9,15 +12,24 @@ public class CreateWoundDto {
     private String woundName;
     private String woundLocation;
     private Patient patient;
-    private Long patientId;
+//    private Long patientId
+    private List<WoundPhoto> woundPhotos;
 
-    public Long getPatientId() {
-        return patientId;
+    public List<WoundPhoto> getWoundPhotos() {
+        return woundPhotos;
     }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setWoundPhotos(List<WoundPhoto> woundPhotos) {
+        this.woundPhotos = woundPhotos;
     }
+
+//    public Long getPatientId() {
+//        return patientId;
+//    }
+//
+//    public void setPatientId(Long patientId) {
+//        this.patientId = patientId;
+//    }
 
     public String getTreatmentPlan() {
         return treatmentPlan;

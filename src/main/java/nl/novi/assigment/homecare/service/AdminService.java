@@ -1,8 +1,8 @@
 package nl.novi.assigment.homecare.service;
 
-import nl.novi.assigment.homecare.domain.dto.AdminDto;
-import nl.novi.assigment.homecare.domain.dto.CreateAdminDto;
-import nl.novi.assigment.homecare.domain.entity.Admin;
+import nl.novi.assigment.homecare.model.dto.AdminDto;
+import nl.novi.assigment.homecare.model.dto.CreateAdminDto;
+import nl.novi.assigment.homecare.model.entity.Admin;
 import nl.novi.assigment.homecare.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 

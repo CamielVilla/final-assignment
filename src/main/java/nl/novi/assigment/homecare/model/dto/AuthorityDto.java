@@ -1,4 +1,4 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
 public class AuthorityDto {
     private  String email;

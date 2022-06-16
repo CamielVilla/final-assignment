@@ -1,16 +1,17 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.entity;
+import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import nl.novi.assigment.homecare.domain.entity.Wound;
+@Entity(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
+public abstract class User {
 
-import java.util.List;
-
-public class PatientDto {
-
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String dateOfBirth;
     private String email;
+    private String password;
     private String role;
     private int enabled;
 
@@ -30,16 +31,6 @@ public class PatientDto {
         this.enabled = enabled;
     }
 
-    private List<Wound> wounds;
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -48,12 +39,12 @@ public class PatientDto {
         this.email = email;
     }
 
-    public List<Wound> getWounds() {
-        return wounds;
+    public String getPassword() {
+        return password;
     }
 
-    public void setWounds(List<Wound> wounds) {
-        this.wounds = wounds;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {

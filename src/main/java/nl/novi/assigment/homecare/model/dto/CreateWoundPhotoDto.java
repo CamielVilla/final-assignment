@@ -1,25 +1,28 @@
-package nl.novi.assigment.homecare.domain.dto;
+package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.domain.entity.Wound;
+import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
+import nl.novi.assigment.homecare.model.entity.Wound;
+
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class WoundPhotoDto {
+public class CreateWoundPhotoDto {
 
-    private Long id;
     private String nurseAssessment;
-    private LocalDateTime assessmentDate;
+    private Date assessmentDate;
     private String patientComment;
     private LocalDateTime photoDate;
     private Wound wound;
+    private Long woundId;
+    private FileUploadResponse file;
 
-    public Long getId() {
-        return id;
+    public FileUploadResponse getFile() {
+        return file;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
     }
 
     public String getNurseAssessment() {
@@ -30,11 +33,11 @@ public class WoundPhotoDto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public LocalDateTime getAssessmentDate() {
+    public Date getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(LocalDateTime assessmentDate) {
+    public void setAssessmentDate(Date assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -60,5 +63,13 @@ public class WoundPhotoDto {
 
     public void setWound(Wound wound) {
         this.wound = wound;
+    }
+
+    public Long getWoundId() {
+        return woundId;
+    }
+
+    public void setWoundId(Long woundId) {
+        this.woundId = woundId;
     }
 }

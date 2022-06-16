@@ -1,4 +1,4 @@
-package nl.novi.assigment.homecare.domain.entity;
+package nl.novi.assigment.homecare.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,7 +20,7 @@ public class Wound {
     private Patient patient;
 
     @OneToMany (mappedBy = "wound")
-    @JsonIgnore
+
     private List<WoundPhoto> woundPhotos;
 
 
