@@ -10,32 +10,47 @@ import java.time.LocalDateTime;
 @Entity
     public class WoundExamination {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id
+        @GeneratedValue (strategy = GenerationType.IDENTITY)
         private Long id;
         private String nurseAssessment;
         private LocalDateTime assessmentDate;
-
-        private String fileName;
-        private String contentType;
-        private String url;
-        private LocalDate photoDate;
         private String patientComment;
+        private LocalDate photoDate;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn (name = "wound_id")
-    private Wound wound;
+         @ManyToOne
+         @JsonIgnore
+         @JoinColumn (name = "wound_id")
+         private Wound wound;
 
-        public WoundExamination(String fileName, String contentType, String url, LocalDate photoDate) {
-            this.fileName = fileName;
-            this.contentType = contentType;
-            this.url = url;
-            this.photoDate = photoDate;
-        }
+         @OneToOne
+         FileUploadResponse file;
 
     public WoundExamination() {
+    }
+
+    public LocalDate getPhotoDate() {
+        return photoDate;
+    }
+
+    public void setPhotoDate(LocalDate photoDate) {
+        this.photoDate = photoDate;
+    }
+
+    public String getPatientComment() {
+        return patientComment;
+    }
+
+    public void setPatientComment(String patientComment) {
+        this.patientComment = patientComment;
+    }
+
+    public FileUploadResponse getFile() {
+        return file;
+    }
+
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
     }
 
     public Wound getWound() {
@@ -70,46 +85,5 @@ import java.time.LocalDateTime;
         this.assessmentDate = assessmentDate;
     }
 
-    public LocalDate getPhotoDate() {
-        return photoDate;
-    }
-
-    public void setPhotoDate(LocalDate photoDate) {
-        this.photoDate = photoDate;
-    }
-
-    public String getPatientComment() {
-        return patientComment;
-    }
-
-    public void setPatientComment(String patientComment) {
-        this.patientComment = patientComment;
-    }
-
-
-
-        public String getFileName() {
-            return fileName;
-        }
-
-        public String getContentType() {
-            return contentType;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
-        }
-
-        public void setContentType(String contentType) {
-            this.contentType = contentType;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
     }
 
