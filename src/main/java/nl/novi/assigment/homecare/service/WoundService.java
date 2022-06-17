@@ -1,12 +1,11 @@
 package nl.novi.assigment.homecare.service;
 
 
-import nl.novi.assigment.homecare.model.dto.CreateWoundPhotoDto;
+import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
-import nl.novi.assigment.homecare.model.dto.WoundPhotoDto;
 import nl.novi.assigment.homecare.model.entity.Wound;
-import nl.novi.assigment.homecare.model.entity.WoundPhoto;
-import nl.novi.assigment.homecare.repository.WoundPhotoRepository;
+import nl.novi.assigment.homecare.model.entity.WoundExamination;
+import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,11 @@ import java.util.List;
 @Service
 public class WoundService {
     private final WoundRepository woundRepository;
-    private final WoundPhotoRepository woundPhotoRepository;
+    private final WoundExaminationRepository woundExaminationRepository;
 
-    public WoundService(WoundRepository woundRepository, WoundPhotoRepository woundPhotoRepository) {
+    public WoundService(WoundRepository woundRepository, WoundExaminationRepository woundExaminationRepository) {
         this.woundRepository = woundRepository;
-        this.woundPhotoRepository = woundPhotoRepository;
+        this.woundExaminationRepository = woundExaminationRepository;
     }
 
     public WoundDto getWoundById (Long id){
@@ -59,16 +58,18 @@ public class WoundService {
         return wound;
     }
 
-    public WoundDto addWoundPhotoToWound(Long woundId, CreateWoundPhotoDto createWoundPhotoDto){
+
+
+    public WoundDto addWoundExaminationToToWound(Long woundId, CreateWoundExaminationDto createWoundExaminationDto){
         WoundDto woundDto = getWoundById(woundId);
-        List<WoundPhoto> woundPhotos = woundDto.getWoundPhotos();
-        WoundPhoto woundPhoto = new WoundPhoto();
-        woundPhoto.setPhotoDate(LocalDateTime.now());
-        woundPhoto.setWound(toWound(woundDto));
-        woundPhoto.setPatientComment(createWoundPhotoDto.getPatientComment());
-        woundPhoto.setFile(createWoundPhotoDto.getFile());
-        woundPhotoRepository.save(woundPhoto);
-        woundPhotos.add(woundPhoto);
+        List<WoundExamination> woundExaminations = woundDto.getWoundPhotos();
+        WoundExamination woundExamination = new WoundExamination();
+        woundExamination.setPhotoDate(LocalDateTime.now());
+        woundExamination.setWound(toWound(woundDto));
+        woundExamination.setPatientComment(createWoundExaminationDto.getPatientComment());
+        woundExamination.setFile(createWoundExaminationDto.getFile());
+        woundExaminationRepository.save(woundExamination);
+        woundExaminations.add(woundExamination);
         Wound savedWound = woundRepository.save(toWound(woundDto));
         return (toWoundDto(savedWound));
     }

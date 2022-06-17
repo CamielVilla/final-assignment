@@ -1,20 +1,30 @@
-package nl.novi.assigment.homecare.model.dto;
+package nl.novi.assigment.homecare.model.entity;
 
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.Wound;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class CreateWoundPhotoDto {
+@Entity
+public class WoundExamination {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nurseAssessment;
-    private Date assessmentDate;
+    private LocalDateTime assessmentDate;
     private String patientComment;
     private LocalDateTime photoDate;
-    private Wound wound;
+
+    @OneToOne
     private FileUploadResponse file;
+
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn (name = "wound_id")
+    private Wound wound;
+
 
     public FileUploadResponse getFile() {
         return file;
@@ -22,6 +32,14 @@ public class CreateWoundPhotoDto {
 
     public void setFile(FileUploadResponse file) {
         this.file = file;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNurseAssessment() {
@@ -32,11 +50,11 @@ public class CreateWoundPhotoDto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public Date getAssessmentDate() {
+    public LocalDateTime getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(Date assessmentDate) {
+    public void setAssessmentDate(LocalDateTime assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -63,5 +81,4 @@ public class CreateWoundPhotoDto {
     public void setWound(Wound wound) {
         this.wound = wound;
     }
-
 }
