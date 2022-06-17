@@ -1,24 +1,27 @@
 package nl.novi.assigment.homecare.model.dto;
 
+import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Wound;
 
+
 import java.time.LocalDateTime;
+import java.util.Date;
 
-public class WoundPhotoDto {
+public class CreateWoundExaminationDto {
 
-    private Long id;
     private String nurseAssessment;
-    private LocalDateTime assessmentDate;
+    private Date assessmentDate;
     private String patientComment;
     private LocalDateTime photoDate;
     private Wound wound;
+    private FileUploadResponse file;
 
-    public Long getId() {
-        return id;
+    public FileUploadResponse getFile() {
+        return file;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
     }
 
     public String getNurseAssessment() {
@@ -29,11 +32,11 @@ public class WoundPhotoDto {
         this.nurseAssessment = nurseAssessment;
     }
 
-    public LocalDateTime getAssessmentDate() {
+    public Date getAssessmentDate() {
         return assessmentDate;
     }
 
-    public void setAssessmentDate(LocalDateTime assessmentDate) {
+    public void setAssessmentDate(Date assessmentDate) {
         this.assessmentDate = assessmentDate;
     }
 
@@ -60,4 +63,5 @@ public class WoundPhotoDto {
     public void setWound(Wound wound) {
         this.wound = wound;
     }
+
 }

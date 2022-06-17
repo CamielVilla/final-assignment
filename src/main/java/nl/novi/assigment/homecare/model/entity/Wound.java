@@ -20,15 +20,15 @@ public class Wound {
     private Patient patient;
 
     @OneToMany (mappedBy = "wound", fetch = FetchType.EAGER)
-    private List<WoundPhoto> woundPhotos;
+    private List<WoundExamination> woundExaminations;
 
 
-    public List<WoundPhoto> getWoundPhotos() {
-        return woundPhotos;
+    public List<WoundExamination> getWoundPhotos() {
+        return woundExaminations;
     }
 
-    public void setWoundPhotos(List<WoundPhoto> woundPhotos) {
-        this.woundPhotos = woundPhotos;
+    public void setWoundPhotos(List<WoundExamination> woundExaminations) {
+        this.woundExaminations = woundExaminations;
     }
 
     public Long getId() {

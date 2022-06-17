@@ -40,35 +40,25 @@ public class PhotoService {
     }
 
     public String storeFile(MultipartFile file, String url) {
-
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-
-        Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
-
+        Path filePath = Paths.get(fileStoragePath + "/" + fileName);
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
         } catch (IOException e) {
             throw new RuntimeException("Issue in storing the file", e);
         }
-
         fileUploadRepository.save(new FileUploadResponse(fileName, file.getContentType(), url));
-
         return fileName;
     }
 
     public Resource downLoadFile(String fileName) {
-
         Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
-
         Resource resource;
-
         try {
             resource = new UrlResource(path.toUri());
         } catch (MalformedURLException e) {
             throw new RuntimeException("Issue in reading the file", e);
         }
-
         if(resource.exists()&& resource.isReadable()) {
             return resource;
         } else {

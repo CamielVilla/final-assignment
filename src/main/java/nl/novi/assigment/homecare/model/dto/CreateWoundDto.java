@@ -1,7 +1,7 @@
 package nl.novi.assigment.homecare.model.dto;
 
 import nl.novi.assigment.homecare.model.entity.Patient;
-import nl.novi.assigment.homecare.model.entity.WoundPhoto;
+import nl.novi.assigment.homecare.model.entity.WoundExamination;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ public class CreateWoundDto {
     private String woundLocation;
     private Patient patient;
 //    private Long patientId
-    private List<WoundPhoto> woundPhotos;
+    private List<WoundExamination> woundExaminations;
 
-    public List<WoundPhoto> getWoundPhotos() {
-        return woundPhotos;
+    public List<WoundExamination> getWoundPhotos() {
+        return woundExaminations;
     }
 
-    public void setWoundPhotos(List<WoundPhoto> woundPhotos) {
-        this.woundPhotos = woundPhotos;
+    public void setWoundPhotos(List<WoundExamination> woundExaminations) {
+        this.woundExaminations = woundExaminations;
     }
 
 //    public Long getPatientId() {
