@@ -3,17 +3,14 @@ package nl.novi.assigment.homecare.service;
 import nl.novi.assigment.homecare.model.dto.CreatePatientDto;
 import nl.novi.assigment.homecare.model.dto.CreateWoundDto;
 import nl.novi.assigment.homecare.model.dto.PatientDto;
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
-import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.PatientRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PatientService {
@@ -106,7 +103,6 @@ public class PatientService {
         wound.setWoundLocation(createWoundDto.getWoundLocation());
         wound.setTreatmentPlan(createWoundDto.getTreatmentPlan());
         wound.setPatient(toPatient(patientDto));
-        wound.setWoundPhotos(createWoundDto.getWoundPhotos());
         woundRepository.save(wound);
         wounds.add(wound);
 //        Wound savedWound = woundRepository.save(wound);

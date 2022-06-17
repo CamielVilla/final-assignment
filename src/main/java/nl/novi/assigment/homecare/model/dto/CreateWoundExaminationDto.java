@@ -1,6 +1,6 @@
 package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
+import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.model.entity.Wound;
 
 
@@ -14,13 +14,13 @@ public class CreateWoundExaminationDto {
     private String patientComment;
     private LocalDateTime photoDate;
     private Wound wound;
-    private FileUploadResponse file;
+    private WoundExamination file;
 
-    public FileUploadResponse getFile() {
+    public WoundExamination getFile() {
         return file;
     }
 
-    public void setFile(FileUploadResponse file) {
+    public void setFile(WoundExamination file) {
         this.file = file;
     }
 

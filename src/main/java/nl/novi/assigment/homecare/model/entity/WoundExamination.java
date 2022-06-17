@@ -3,35 +3,47 @@ package nl.novi.assigment.homecare.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 @Entity
-public class WoundExamination {
+    public class WoundExamination {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nurseAssessment;
-    private LocalDateTime assessmentDate;
-    private String patientComment;
-    private LocalDateTime photoDate;
+        private Long id;
+        private String nurseAssessment;
+        private LocalDateTime assessmentDate;
 
-    @OneToOne
-    private FileUploadResponse file;
-
+        private String fileName;
+        private String contentType;
+        private String url;
+        private LocalDate photoDate;
+        private String patientComment;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn (name = "wound_id")
     private Wound wound;
 
+        public WoundExamination(String fileName, String contentType, String url, LocalDate photoDate) {
+            this.fileName = fileName;
+            this.contentType = contentType;
+            this.url = url;
+            this.photoDate = photoDate;
+        }
 
-    public FileUploadResponse getFile() {
-        return file;
+    public WoundExamination() {
     }
 
-    public void setFile(FileUploadResponse file) {
-        this.file = file;
+    public Wound getWound() {
+        return wound;
+    }
+
+    public void setWound(Wound wound) {
+        this.wound = wound;
     }
 
     public Long getId() {
@@ -58,6 +70,14 @@ public class WoundExamination {
         this.assessmentDate = assessmentDate;
     }
 
+    public LocalDate getPhotoDate() {
+        return photoDate;
+    }
+
+    public void setPhotoDate(LocalDate photoDate) {
+        this.photoDate = photoDate;
+    }
+
     public String getPatientComment() {
         return patientComment;
     }
@@ -66,19 +86,30 @@ public class WoundExamination {
         this.patientComment = patientComment;
     }
 
-    public LocalDateTime getPhotoDate() {
-        return photoDate;
+
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public String getContentType() {
+            return contentType;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+
+        public void setContentType(String contentType) {
+            this.contentType = contentType;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 
-    public void setPhotoDate(LocalDateTime photoDate) {
-        this.photoDate = photoDate;
-    }
-
-    public Wound getWound() {
-        return wound;
-    }
-
-    public void setWound(Wound wound) {
-        this.wound = wound;
-    }
-}

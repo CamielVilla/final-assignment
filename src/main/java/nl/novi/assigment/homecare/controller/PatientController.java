@@ -1,12 +1,9 @@
 package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.dto.*;
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.service.PatientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.net.URI;
@@ -17,11 +14,9 @@ import java.util.List;
 @RequestMapping("patients")
 public class PatientController {
     private final PatientService patientService;
-    private final PhotoController photoController;
 
-    public PatientController(PatientService patientService, PhotoController photoController) {
+    public PatientController(PatientService patientService) {
         this.patientService = patientService;
-        this.photoController = photoController;
     }
 
     @PostMapping

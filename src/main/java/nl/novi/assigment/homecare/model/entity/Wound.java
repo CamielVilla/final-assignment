@@ -22,12 +22,11 @@ public class Wound {
     @OneToMany (mappedBy = "wound", fetch = FetchType.EAGER)
     private List<WoundExamination> woundExaminations;
 
-
-    public List<WoundExamination> getWoundPhotos() {
+    public List<WoundExamination> getWoundExaminations() {
         return woundExaminations;
     }
 
-    public void setWoundPhotos(List<WoundExamination> woundExaminations) {
+    public void setWoundExaminations(List<WoundExamination> woundExaminations) {
         this.woundExaminations = woundExaminations;
     }
 

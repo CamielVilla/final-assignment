@@ -11,14 +11,15 @@ public class WoundDto {
     private String woundName;
     private String woundLocation;
     private Patient patient;
-    private List<WoundExamination> woundExaminations;
+    private List<WoundExamination> woundExamination;
 
-    public List<WoundExamination> getWoundPhotos() {
-        return woundExaminations;
+
+    public List<WoundExamination> getWoundExamination() {
+        return woundExamination;
     }
 
-    public void setWoundPhotos(List<WoundExamination> woundExaminations) {
-        this.woundExaminations = woundExaminations;
+    public void setWoundExamination(List<WoundExamination> woundExamination) {
+        this.woundExamination = woundExamination;
     }
 
     public Long getId() {

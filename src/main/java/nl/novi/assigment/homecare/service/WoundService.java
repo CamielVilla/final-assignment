@@ -3,23 +3,58 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
+import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class WoundService {
+
+    @Value("${my.upload_location}")
+    private Path fileStoragePath;
+    private final String fileStorageLocation;
+
     private final WoundRepository woundRepository;
     private final WoundExaminationRepository woundExaminationRepository;
 
-    public WoundService(WoundRepository woundRepository, WoundExaminationRepository woundExaminationRepository) {
+//    public WoundService(WoundRepository woundRepository, WoundExaminationRepository woundExaminationRepository) {
+//        this.woundRepository = woundRepository;
+//        this.woundExaminationRepository = woundExaminationRepository;
+//    }
+
+
+
+    public WoundService(@Value("${my.upload_location}") String fileStorageLocation, WoundExaminationRepository woundExaminationRepository, WoundRepository woundRepository) {
+        fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
         this.woundRepository = woundRepository;
+        this.fileStorageLocation = fileStorageLocation;
         this.woundExaminationRepository = woundExaminationRepository;
+
+        try {
+            Files.createDirectories(fileStoragePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Issue in creating file directory");
+        }
+
     }
 
     public WoundDto getWoundById (Long id){
@@ -44,7 +79,7 @@ public class WoundService {
         woundDto.setWoundLocation(wound.getWoundLocation());
         woundDto.setTreatmentPlan(wound.getTreatmentPlan());
         woundDto.setPatient(wound.getPatient());
-        woundDto.setWoundPhotos(wound.getWoundPhotos());
+        woundDto.setWoundExamination(wound.getWoundExaminations());
         return woundDto;
     }
 
@@ -62,17 +97,46 @@ public class WoundService {
 
     public WoundDto addWoundExaminationToToWound(Long woundId, CreateWoundExaminationDto createWoundExaminationDto){
         WoundDto woundDto = getWoundById(woundId);
-        List<WoundExamination> woundExaminations = woundDto.getWoundPhotos();
+        List<WoundExamination> woundExaminations = woundDto.getWoundExamination();
         WoundExamination woundExamination = new WoundExamination();
-        woundExamination.setPhotoDate(LocalDateTime.now());
+//        woundExamination.setPhotoDate(LocalDate.now());
         woundExamination.setWound(toWound(woundDto));
         woundExamination.setPatientComment(createWoundExaminationDto.getPatientComment());
-        woundExamination.setFile(createWoundExaminationDto.getFile());
+//        woundExamination.setFile(createWoundExaminationDto.getFile());
         woundExaminationRepository.save(woundExamination);
         woundExaminations.add(woundExamination);
         Wound savedWound = woundRepository.save(toWound(woundDto));
         return (toWoundDto(savedWound));
     }
 
+    public String storeFile(MultipartFile file, String url) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
+        LocalDate date = LocalDate.now();
+
+        Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        try {
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Issue in storing the file", e);
+        }
+        woundExaminationRepository.save(new WoundExamination(fileName, file.getContentType(), url, date));
+        return fileName;
+    }
+
+    public Resource downLoadFile(String fileName) {
+        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
+        Resource resource;
+        try {
+            resource = new UrlResource(path.toUri());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Issue in reading the file", e);
+        }
+        if(resource.exists()&& resource.isReadable()) {
+            return resource;
+        } else {
+            throw new RuntimeException("the file doesn't exist or not readable");
+        }
+    }
 
 }

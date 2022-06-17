@@ -3,14 +3,12 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -31,7 +29,7 @@ public class WoundExaminationService {
 
     public WoundExaminationDto addWoundExamination(CreateWoundExaminationDto createWoundExaminationDto) {
         WoundExamination woundExamination = new WoundExamination();
-        woundExamination.setPhotoDate(LocalDateTime.now());
+        woundExamination.setPhotoDate(LocalDate.now());
         woundExamination.setPatientComment(createWoundExaminationDto.getPatientComment());
         woundExaminationRepository.save(woundExamination);
         return toWoundExaminationDto(woundExamination);
@@ -77,14 +75,14 @@ public class WoundExaminationService {
         return toWoundExaminationDto(woundExamination);
     }
 
-    public void assignPhotoToWoundExamination(String name, Long id) {
-        WoundExamination woundExamination = toWoundExamination(getWoundExaminationDtoById(id));
-        Optional<FileUploadResponse> optionalFileUploadResponse = fileUploadRepository.findByFileName(name);
-
-        if (optionalFileUploadResponse.isPresent()) {
-            FileUploadResponse photo = optionalFileUploadResponse.get();
-            woundExamination.setFile(photo);
-            woundExaminationRepository.save(woundExamination);
-        }
-    }
+//    public void assignPhotoToWoundExamination(String name, Long id) {
+//        WoundExamination woundExamination = toWoundExamination(getWoundExaminationDtoById(id));
+//        Optional<WoundExamination> optionalFileUploadResponse = fileUploadRepository.findByFileName(name);
+//
+//        if (optionalFileUploadResponse.isPresent()) {
+//            WoundExamination photo = optionalFileUploadResponse.get();
+//            woundExamination.setFile(photo);
+//            woundExaminationRepository.save(woundExamination);
+//        }
+//    }
 }
