@@ -2,6 +2,7 @@ package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.dto.*;
 import nl.novi.assigment.homecare.service.PatientService;
+import nl.novi.assigment.homecare.service.WoundService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,11 @@ import java.util.List;
 @RequestMapping("patients")
 public class PatientController {
     private final PatientService patientService;
+    private final WoundService woundService;
 
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, WoundService woundService) {
         this.patientService = patientService;
+        this.woundService = woundService;
     }
 
     @PostMapping
@@ -53,4 +56,10 @@ public class PatientController {
         patientService.addWoundToPatient(patientDto.getId(), createWoundDto);
         return ResponseEntity.ok(patientDto);
     }
+
+    @GetMapping("/{id}/{woundId}")
+    public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id, @PathVariable Long woundId){
+        return ResponseEntity.ok(woundService.getWoundById(woundId));
+    }
+
 }

@@ -36,10 +36,10 @@ public class WoundController {
         this.woundExaminationService = woundExaminationService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
-       return ResponseEntity.ok(woundService.getWoundById(id));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
+//       return ResponseEntity.ok(woundService.getWoundById(id));
+//    }
 
 
     @PostMapping("/{id}/photo")
