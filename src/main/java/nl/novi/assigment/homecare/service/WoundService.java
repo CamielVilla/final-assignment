@@ -3,28 +3,19 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
-import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class WoundService {
@@ -85,7 +76,7 @@ public class WoundService {
         woundDto.setWoundLocation(wound.getWoundLocation());
         woundDto.setTreatmentPlan(wound.getTreatmentPlan());
         woundDto.setPatient(wound.getPatient());
-        woundDto.setWoundExamination(wound.getWoundExaminations());
+        woundDto.setWoundExaminations(wound.getWoundExaminations());
         return woundDto;
     }
 
@@ -132,7 +123,18 @@ public class WoundService {
 //        return fileName;
 //    }
 
-
+public WoundExamination addWoundExamination(Long woundId, CreateWoundExaminationDto createWoundExaminationDto){
+        WoundDto woundDto = getWoundById(woundId);
+        WoundExamination woundExamination = new WoundExamination();
+    List<WoundExamination> woundExaminations = woundDto.getWoundExaminations();
+    woundExamination.setWound(toWound(woundDto));
+    woundExamination.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
+    woundExaminationRepository.save(woundExamination);
+    woundExaminations.add(woundExamination);
+    woundDto.setWoundExaminations(woundExaminations);
+    woundRepository.save(toWound(woundDto));
+    return woundExamination;
+}
 
 
 }

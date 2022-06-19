@@ -4,6 +4,7 @@ import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 
 import java.util.List;
+import java.util.Set;
 
 public class WoundDto {
     private Long id;
@@ -11,15 +12,15 @@ public class WoundDto {
     private String woundName;
     private String woundLocation;
     private Patient patient;
-    private List<WoundExamination> woundExamination;
+    private List<WoundExamination> woundExaminations;
 
 
-    public List<WoundExamination> getWoundExamination() {
-        return woundExamination;
+    public List<WoundExamination> getWoundExaminations() {
+        return woundExaminations;
     }
 
-    public void setWoundExamination(List<WoundExamination> woundExamination) {
-        this.woundExamination = woundExamination;
+    public void setWoundExaminations(List<WoundExamination> woundExaminations) {
+        this.woundExaminations = woundExaminations;
     }
 
     public Long getId() {

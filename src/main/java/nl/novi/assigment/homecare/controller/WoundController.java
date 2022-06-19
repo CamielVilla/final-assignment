@@ -36,10 +36,10 @@ public class WoundController {
         this.woundExaminationService = woundExaminationService;
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
-//       return ResponseEntity.ok(woundService.getWoundById(id));
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
+       return ResponseEntity.ok(woundService.getWoundById(id));
+    }
 
 
     @PostMapping("/{id}/photo")
@@ -49,7 +49,16 @@ public class WoundController {
 
         woundExaminationService.assignPhotoToWoundExamination(photo.getFileName(), id);
     }
+//        @PostMapping("{id}/nurse")
+//    public ResponseEntity<WoundDto> addAssessment (@PathVariable Long id, @RequestBody CreateWoundExaminationDto createWoundExaminationDto){
+//        return ResponseEntity.ok(woundExaminationService.addAssessment(id, createWoundExaminationDto));
+//    }
 
+    @PostMapping("{id}/examination")
+    public ResponseEntity<WoundExamination> addExamination(@PathVariable Long id, @RequestBody CreateWoundExaminationDto dto){
+        WoundExamination woundExamination = woundService.addWoundExamination(id, dto);
+        return ResponseEntity.ok(woundExamination);
+    }
 //    @PostMapping("/{id}/photo")
 //    public ResponseEntity<WoundDto> addWoundPhoto (@RequestBody CreateWoundExaminationDto createWoundExaminationDto, @PathVariable Long id){
 //        WoundDto woundDto = woundService.getWoundById(id);

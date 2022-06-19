@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
+
 @CrossOrigin
 @RestController
 @RequestMapping("woundexamination")
@@ -23,14 +25,14 @@ public class WoundExaminationController {
 
 
 
-    //    @PostMapping
-//    public ResponseEntity<WoundExaminationDto> addWoundExamination(@RequestBody CreateWoundExaminationDto createWoundExaminationDto){
-//        final WoundExaminationDto woundExaminationDto = woundExaminationService.addWoundExamination(createWoundExaminationDto);
-//        final URI location = URI.create("woundexamination");
-//        return ResponseEntity
-//                .created(location)
-//                .body(woundExaminationDto);
-//    }
+        @PostMapping
+    public ResponseEntity<WoundExaminationDto> addWoundExamination(){
+        final WoundExaminationDto woundExaminationDto = woundExaminationService.addWoundExamination();
+        final URI location = URI.create("woundexamination");
+        return ResponseEntity
+                .created(location)
+                .body(woundExaminationDto);
+    }
 
 //    @PutMapping("{id}")
 //    public ResponseEntity<WoundExaminationDto> reviewWoundPhoto (@RequestBody CreateWoundExaminationDto createWoundExaminationDto, @PathVariable Long id) {
@@ -47,4 +49,6 @@ public class WoundExaminationController {
 //      WoundExaminationDto woundExaminationDto = woundExaminationService.addPatientComment(id, createWoundExaminationDto);
 //        return ResponseEntity.ok(woundExaminationDto.getPatientComment());
 //    }
+
+
 }

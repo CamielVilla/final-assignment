@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.service;
 import nl.novi.assigment.homecare.model.dto.CreatePatientDto;
 import nl.novi.assigment.homecare.model.dto.CreateWoundDto;
 import nl.novi.assigment.homecare.model.dto.PatientDto;
+import nl.novi.assigment.homecare.model.dto.WoundDto;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.repository.PatientRepository;
@@ -16,11 +17,12 @@ import java.util.List;
 public class PatientService {
     private final PatientRepository patientRepository;
     private final WoundRepository woundRepository;
+    private final WoundService woundService;
 
-
-    public PatientService(PatientRepository patientRepository, WoundRepository woundRepository) {
+    public PatientService(PatientRepository patientRepository, WoundRepository woundRepository, WoundService woundService) {
         this.patientRepository = patientRepository;
         this.woundRepository = woundRepository;
+        this.woundService = woundService;
     }
 
     public PatientDto addPatient(CreatePatientDto createPatientDto) {
@@ -76,6 +78,17 @@ public class PatientService {
             dtoList.add(patientDto);
         }
         return dtoList;
+    }
+
+    public List<Wound> getAllWoundsFromPatient(Long id){
+        List<Wound> wounds = getPatientById(id).getWounds();
+        List<Wound> newWounds = new ArrayList<>();
+        for (Wound wound : wounds){
+            if(!newWounds.contains(wound)){
+                newWounds.add(wound);
+            }
+        }
+        return newWounds;
     }
 
     public PatientDto updatePatient(Long id, CreatePatientDto createPatientDto){

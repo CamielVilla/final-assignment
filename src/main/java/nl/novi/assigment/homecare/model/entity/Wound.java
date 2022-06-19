@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Wound {
@@ -15,11 +16,11 @@ public class Wound {
     private String woundLocation;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn (name = "patient_id")
     private Patient patient;
 
-    @OneToMany (mappedBy = "wound", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "wound", fetch = FetchType.EAGER)
     private List<WoundExamination> woundExaminations;
 
     public List<WoundExamination> getWoundExaminations() {

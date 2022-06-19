@@ -5,6 +5,7 @@ import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
 import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
+import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
@@ -12,7 +13,6 @@ import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,12 +33,19 @@ public class WoundExaminationService {
         this.woundRepository = woundRepository;
     }
 
-    public WoundExaminationDto addWoundExamination(CreateWoundExaminationDto createWoundExaminationDto) {
+    public WoundExaminationDto addWoundExamination() {
         WoundExamination woundExamination = new WoundExamination();
-        woundExamination.setPatientComment(createWoundExaminationDto.getPatientComment());
+//        woundExamination.setPatientComment(createWoundExaminationDto.getPatientComment());
         woundExaminationRepository.save(woundExamination);
         return toWoundExaminationDto(woundExamination);
     }
+
+//    public WoundExamination addWoundExaminationToWound(Long woundId){
+//        WoundExamination woundExamination = new WoundExamination();
+//        WoundDto woundDto = woundService.getWoundById(woundId);
+//        woundExamination.setWound(woundService.toWound(woundDto));
+//        return woundExaminationRepository.save(woundExamination);
+//    }
 
     public WoundExaminationDto toWoundExaminationDto(WoundExamination woundExamination) {
         WoundExaminationDto woundExaminationDto = new WoundExaminationDto();
@@ -47,26 +54,26 @@ public class WoundExaminationService {
         woundExaminationDto.setAssessmentDate(woundExamination.getAssessmentDate());
         woundExaminationDto.setPatientComment(woundExamination.getPatientComment());
         woundExaminationDto.setPhotoDate(woundExamination.getPhotoDate());
-        woundExaminationDto.setWound(woundExamination.getWound());
+//        woundExaminationDto.setWound(woundExamination.getWound());
         return woundExaminationDto;
     }
 
-    public WoundExamination toWoundExamination(WoundExaminationDto woundExaminationDto){
+    public WoundExamination toWoundExamination(WoundExaminationDto woundExaminationDto) {
         WoundExamination woundExamination = new WoundExamination();
         woundExamination.setId(woundExaminationDto.getId());
         woundExamination.setNurseAssessment(woundExaminationDto.getNurseAssessment());
         woundExamination.setAssessmentDate(woundExaminationDto.getAssessmentDate());
         woundExamination.setPatientComment(woundExaminationDto.getPatientComment());
         woundExamination.setPhotoDate(woundExaminationDto.getPhotoDate());
-        woundExamination.setWound(woundExaminationDto.getWound());
+//        woundExamination.setWound(woundExaminationDto.getWound());
         return woundExamination;
     }
 
-    public WoundExamination getWoundExaminationById(Long id){
-        if (woundExaminationRepository.existsById(id)){
+    public WoundExamination getWoundExaminationById(Long id) {
+        if (woundExaminationRepository.existsById(id)) {
             WoundExamination woundExamination = woundExaminationRepository.findById(id).get();
             return woundExamination;
-        }else{
+        } else {
             throw new RuntimeException();
         }
     }
@@ -87,14 +94,19 @@ public class WoundExaminationService {
 //        return toWoundExaminationDto(savedWoundExamination);
 //    }
 
-    public void assignPhotoToWoundExamination(String name, Long woundId)
-    {
-        WoundDto woundDto = woundService.getWoundById(woundId);
-        List<WoundExamination> woundExaminations = woundDto.getWoundExamination();
+    public void assignPhotoToWoundExamination(String name, Long woundId) {
         WoundExamination woundExamination = new WoundExamination();
+//        woundExaminationRepository.save(woundExamination);
+
+//        woundExamination.setWound(woundService.toWound(woundService.getWoundById(woundId)));
+
+//        WoundExaminationDto woundExamination = addWoundExamination();
+        WoundDto woundDto = woundService.getWoundById(woundId);
+//        List<WoundExamination> woundExaminations = woundDto.getWoundExaminations();
+        woundExamination.setPhotoDate(LocalDate.now());
         woundExamination.setWound(woundService.toWound(woundDto));
-        woundExaminations.add(woundExamination);
-        woundDto.setWoundExamination(woundExaminations);
+//        woundExaminations.add(woundExamination);
+//        woundDto.setWoundExaminations(woundExaminations);
 
 
         Optional<FileUploadResponse> optionalFileUploadResponse = fileUploadRepository.findByFileName(name);
@@ -103,8 +115,17 @@ public class WoundExaminationService {
             FileUploadResponse photo = optionalFileUploadResponse.get();
             woundExamination.setFile(photo);
             woundExaminationRepository.save(woundExamination);
+            woundRepository.save(woundService.toWound(woundDto));
         }
     }
-
+//
+//    public WoundDto addAssessment(Long woundId, CreateWoundExaminationDto createWoundExaminationDto) {
+//        WoundExamination woundExamination = new WoundExamination();
+//        WoundDto woundDto = woundService.getWoundById(woundId);
+////        woundExamination.setWound(woundService.toWound(woundDto));
+//        woundExamination.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
+//        woundExaminationRepository.save(woundExamination);
+//        return woundDto;
+//    }
 
 }

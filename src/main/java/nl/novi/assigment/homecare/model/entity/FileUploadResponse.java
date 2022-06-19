@@ -1,5 +1,7 @@
 package nl.novi.assigment.homecare.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -13,7 +15,7 @@ public class FileUploadResponse {
     private String url;
 
     @OneToOne
-    WoundExamination woundExamination;
+    private WoundExamination woundExamination;
 //    private LocalDate photoDate;
 //    private String patientComment;
 
