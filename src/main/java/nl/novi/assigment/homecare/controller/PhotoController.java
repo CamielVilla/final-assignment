@@ -1,10 +1,8 @@
 package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.WoundExamination;
 
-import nl.novi.assigment.homecare.service.PhotoService;
-import nl.novi.assigment.homecare.service.WoundService;
+import nl.novi.assigment.homecare.service.FileUploadService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,15 +13,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 @RestController
 @CrossOrigin
 public class PhotoController {
-    private final PhotoService photoService;
-    public PhotoController(PhotoService service) {
-        this.photoService = service;
+    private final FileUploadService fileUploadService;
+    public PhotoController(FileUploadService service) {
+        this.fileUploadService = service;
     }
 
     @PostMapping("/upload")
@@ -33,7 +29,7 @@ public class PhotoController {
 
         String contentType = file.getContentType();
 
-        String fileName = photoService.storeFile(file, url);
+        String fileName = fileUploadService.storeFile(file, url);
 
         return new FileUploadResponse(fileName, contentType, url );
     }
@@ -41,7 +37,7 @@ public class PhotoController {
     @GetMapping("/download/{fileName}")
     ResponseEntity<Resource> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) {
 
-        Resource resource = photoService.downLoadFile(fileName);
+        Resource resource = fileUploadService.downLoadFile(fileName);
         String mimeType;
 
         try{

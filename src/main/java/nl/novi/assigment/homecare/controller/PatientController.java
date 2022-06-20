@@ -56,22 +56,12 @@ public class PatientController {
 //        return ResponseEntity.ok(patientService.getPatientById(id));
 //    }
 //
-//    @PostMapping("{id}/wound")
-//    public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
-//        PatientDto patientDto = patientService.getPatientById(id);
-//        patientService.addWoundToPatient(patientDto.getId(), createWoundDto);
-//        return ResponseEntity.ok(patientDto);
-//    }
-
-//    @PostMapping("{id}/{woundId}/exam")
-//    public void assignPhotoToWoundPhoto(@PathVariable Long id, @PathVariable Long woundId, @RequestBody CreateWoundExaminationDto createWoundExaminationDto){
-//
-////        FileUploadResponse photo = photoController.singleFileUpload(file);
-////
-////        woundExaminationService.assignPhotoToWoundExamination(photo.getFileName(), woundId);
-//
-//        patientService.addExamToWound(id, woundId, createWoundExaminationDto);
-//    }
+    @PostMapping("{id}/wound")
+    public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
+        PatientDto patientDto = patientService.getPatientById(id);
+        patientService.addWoundToPatient(patientDto.getId(), createWoundDto);
+        return ResponseEntity.ok(patientDto);
+    }
 
 
 

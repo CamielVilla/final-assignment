@@ -16,39 +16,10 @@ import java.net.URI;
 public class WoundExaminationController {
 
     private final WoundExaminationService woundExaminationService;
-    private final PhotoController photoController;
 
-    public WoundExaminationController(WoundExaminationService woundExaminationService, PhotoController photoController) {
+    public WoundExaminationController(WoundExaminationService woundExaminationService) {
         this.woundExaminationService = woundExaminationService;
-        this.photoController = photoController;
     }
-
-
-
-        @PostMapping
-    public ResponseEntity<WoundExaminationDto> addWoundExamination(){
-        final WoundExaminationDto woundExaminationDto = woundExaminationService.addWoundExamination();
-        final URI location = URI.create("woundexamination");
-        return ResponseEntity
-                .created(location)
-                .body(woundExaminationDto);
-    }
-
-//    @PutMapping("{id}")
-//    public ResponseEntity<WoundExaminationDto> reviewWoundPhoto (@RequestBody CreateWoundExaminationDto createWoundExaminationDto, @PathVariable Long id) {
-//        final WoundExaminationDto woundExaminationDto = woundExaminationService.reviewWoundPhoto(createWoundExaminationDto, id);
-//        return ResponseEntity.ok(woundExaminationDto);
-//    }
-
-
-
-
-//
-//    @PutMapping("{id}/comment")
-//    public ResponseEntity<String> addPatientComment (@PathVariable Long id, @RequestBody CreateWoundExaminationDto createWoundExaminationDto){
-//      WoundExaminationDto woundExaminationDto = woundExaminationService.addPatientComment(id, createWoundExaminationDto);
-//        return ResponseEntity.ok(woundExaminationDto.getPatientComment());
-//    }
 
 
 }

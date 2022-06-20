@@ -30,33 +30,9 @@ public class WoundController {
        return ResponseEntity.ok(woundService.getWoundById(id));
     }
 
-//
-//    @PostMapping("/{id}/photo")
-//    public void assignPhotoToWoundPhoto(@PathVariable Long id, @RequestBody MultipartFile file){
-//
-//        FileUploadResponse photo = photoController.singleFileUpload(file);
-//
-//        woundExaminationService.assignPhotoToWoundExamination(photo.getFileName(), id);
-//    }
-//        @PostMapping("{id}/nurse")
-//    public ResponseEntity<WoundDto> addAssessment (@PathVariable Long id, @RequestBody CreateWoundExaminationDto createWoundExaminationDto){
-//        return ResponseEntity.ok(woundExaminationService.addAssessment(id, createWoundExaminationDto));
-//    }
-
-    @PostMapping("{id}/examination")
-    public void addExamination(@PathVariable Long id, @RequestBody CreateWoundExaminationDto dto){
-        woundService.addWoundExamination(id, dto);
-
-    }
-//    @PostMapping("/{id}/photo")
-//    public ResponseEntity<WoundDto> addWoundPhoto (@RequestBody CreateWoundExaminationDto createWoundExaminationDto, @PathVariable Long id){
-//        WoundDto woundDto = woundService.getWoundById(id);
-//        woundService.addWoundExaminationToToWound(woundDto.getId(), createWoundExaminationDto);
-//        return ResponseEntity.ok(woundDto);
 
     @PostMapping("{id}/photo")
     public void addPhoto (@PathVariable Long id, @RequestBody MultipartFile file){
-
                 FileUploadResponse photo = photoController.singleFileUpload(file);
                 woundService.addPhotoToWound(photo.getFileName(), id);
     }

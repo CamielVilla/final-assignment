@@ -1,9 +1,7 @@
 package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.FileUploadRepository;
-import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.core.io.Resource;
@@ -17,12 +15,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
-public class PhotoService {
+public class FileUploadService {
     @Value("${my.upload_location}")
     private Path fileStoragePath;
     private final String fileStorageLocation;
@@ -31,7 +28,7 @@ public class PhotoService {
 
 
 
-    public PhotoService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileUploadRepository) {
+    public FileUploadService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileUploadRepository) {
         fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
 
         this.fileStorageLocation = fileStorageLocation;
@@ -77,4 +74,14 @@ public class PhotoService {
         }
     }
 
+    public FileUploadResponse getFileByName (String name){
+        Optional <FileUploadResponse> optionalFileUploadResponse =
+        fileUploadRepository.findByFileName(name);
+
+        if (optionalFileUploadResponse.isPresent()){
+            return  optionalFileUploadResponse.get();
+        }else{
+            throw  new RuntimeException();
+        }
+    }
 }
