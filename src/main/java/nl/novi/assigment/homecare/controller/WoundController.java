@@ -3,23 +3,12 @@ package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
-import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.service.WoundExaminationService;
 import nl.novi.assigment.homecare.service.WoundService;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -41,29 +30,36 @@ public class WoundController {
        return ResponseEntity.ok(woundService.getWoundById(id));
     }
 
-
-    @PostMapping("/{id}/photo")
-    public void assignPhotoToWoundPhoto(@PathVariable Long id, @RequestBody MultipartFile file){
-
-        FileUploadResponse photo = photoController.singleFileUpload(file);
-
-        woundExaminationService.assignPhotoToWoundExamination(photo.getFileName(), id);
-    }
+//
+//    @PostMapping("/{id}/photo")
+//    public void assignPhotoToWoundPhoto(@PathVariable Long id, @RequestBody MultipartFile file){
+//
+//        FileUploadResponse photo = photoController.singleFileUpload(file);
+//
+//        woundExaminationService.assignPhotoToWoundExamination(photo.getFileName(), id);
+//    }
 //        @PostMapping("{id}/nurse")
 //    public ResponseEntity<WoundDto> addAssessment (@PathVariable Long id, @RequestBody CreateWoundExaminationDto createWoundExaminationDto){
 //        return ResponseEntity.ok(woundExaminationService.addAssessment(id, createWoundExaminationDto));
 //    }
 
     @PostMapping("{id}/examination")
-    public ResponseEntity<WoundExamination> addExamination(@PathVariable Long id, @RequestBody CreateWoundExaminationDto dto){
-        WoundExamination woundExamination = woundService.addWoundExamination(id, dto);
-        return ResponseEntity.ok(woundExamination);
+    public void addExamination(@PathVariable Long id, @RequestBody CreateWoundExaminationDto dto){
+        woundService.addWoundExamination(id, dto);
+
     }
 //    @PostMapping("/{id}/photo")
 //    public ResponseEntity<WoundDto> addWoundPhoto (@RequestBody CreateWoundExaminationDto createWoundExaminationDto, @PathVariable Long id){
 //        WoundDto woundDto = woundService.getWoundById(id);
 //        woundService.addWoundExaminationToToWound(woundDto.getId(), createWoundExaminationDto);
 //        return ResponseEntity.ok(woundDto);
+
+    @PostMapping("{id}/photo")
+    public void addPhoto (@PathVariable Long id, @RequestBody MultipartFile file){
+
+                FileUploadResponse photo = photoController.singleFileUpload(file);
+                woundService.addPhotoToWound(photo.getFileName(), id);
+    }
 
 }
 

@@ -16,6 +16,7 @@ public class Wound {
     private String woundLocation;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "patient_id")
     private Patient patient;
 

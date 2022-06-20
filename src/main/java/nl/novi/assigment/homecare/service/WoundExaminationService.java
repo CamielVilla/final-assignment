@@ -94,30 +94,33 @@ public class WoundExaminationService {
 //        return toWoundExaminationDto(savedWoundExamination);
 //    }
 
-    public void assignPhotoToWoundExamination(String name, Long woundId) {
-        WoundExamination woundExamination = new WoundExamination();
-//        woundExaminationRepository.save(woundExamination);
-
-//        woundExamination.setWound(woundService.toWound(woundService.getWoundById(woundId)));
-
-//        WoundExaminationDto woundExamination = addWoundExamination();
-        WoundDto woundDto = woundService.getWoundById(woundId);
-//        List<WoundExamination> woundExaminations = woundDto.getWoundExaminations();
-        woundExamination.setPhotoDate(LocalDate.now());
-        woundExamination.setWound(woundService.toWound(woundDto));
-//        woundExaminations.add(woundExamination);
-//        woundDto.setWoundExaminations(woundExaminations);
-
-
-        Optional<FileUploadResponse> optionalFileUploadResponse = fileUploadRepository.findByFileName(name);
-
-        if (optionalFileUploadResponse.isPresent()) {
-            FileUploadResponse photo = optionalFileUploadResponse.get();
-            woundExamination.setFile(photo);
-            woundExaminationRepository.save(woundExamination);
-            woundRepository.save(woundService.toWound(woundDto));
-        }
-    }
+//    public void assignPhotoToWoundExamination(String name, Long woundId) {
+//        WoundExamination woundExamination = new WoundExamination();
+////        woundExaminationRepository.save(woundExamination);
+//
+////        woundExamination.setWound(woundService.toWound(woundService.getWoundById(woundId)));
+//
+////        WoundExaminationDto woundExamination = addWoundExamination();
+//        WoundDto woundDto = woundService.getWoundById(woundId);
+////        List<WoundExamination> woundExaminations = woundDto.getWoundExaminations();
+//        woundExamination.setPhotoDate(LocalDate.now());
+////        woundExamination.setWound(woundService.toWound(woundDto));
+////        woundExaminations.add(woundExamination);
+////        woundDto.setWoundExaminations(woundExaminations);
+//
+//
+//        Optional<FileUploadResponse> optionalFileUploadResponse = fileUploadRepository.findByFileName(name);
+//
+//        if (optionalFileUploadResponse.isPresent()) {
+//            FileUploadResponse photo = optionalFileUploadResponse.get();
+//            woundExamination.setFile(photo);
+//            woundExaminationRepository.save(woundExamination);
+//            woundRepository.save(woundService.toWound(woundDto));
+//        }
+//
+//
+//
+//    }
 //
 //    public WoundDto addAssessment(Long woundId, CreateWoundExaminationDto createWoundExaminationDto) {
 //        WoundExamination woundExamination = new WoundExamination();
