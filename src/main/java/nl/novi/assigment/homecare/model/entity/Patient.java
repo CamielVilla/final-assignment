@@ -4,20 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
-@Entity(name = "Patient")
+@Entity(name = "patient")
 @DiscriminatorValue("patient")
 public class Patient extends User {
 
     private String dateOfBirth;
 
-    @JsonIgnore
-    @OneToMany (mappedBy = "patient", fetch = FetchType.EAGER)
-    private List<Wound> wounds;
 
+    @OneToMany ( mappedBy = "patient", fetch = FetchType.EAGER)
+    private Set<Wound> wounds;
 
-    public List<Wound> getWounds() {
+    public Set<Wound> getWounds() {
         return wounds;
+    }
+
+    public void setWounds(Set<Wound> wounds) {
+        this.wounds = wounds;
     }
 
     public String getDateOfBirth() {
@@ -28,8 +32,5 @@ public class Patient extends User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setWounds(List<Wound> wounds) {
-        this.wounds = wounds;
-    }
 
 }

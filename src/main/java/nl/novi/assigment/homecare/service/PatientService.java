@@ -1,19 +1,17 @@
 package nl.novi.assigment.homecare.service;
 
-import nl.novi.assigment.homecare.model.dto.CreatePatientDto;
-import nl.novi.assigment.homecare.model.dto.CreateWoundDto;
-import nl.novi.assigment.homecare.model.dto.PatientDto;
+import nl.novi.assigment.homecare.model.dto.*;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
+import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.PatientRepository;
+import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PatientService {
@@ -56,7 +54,7 @@ public class PatientService {
         patient.setName(patientDto.getName());
         patient.setEmail(patientDto.getEmail());
         patient.setDateOfBirth(patientDto.getDateOfBirth());
-        patient.setWounds(patient.getWounds());
+        patient.setWounds(patientDto.getWounds());
         patient.setRole(patientDto.getRole());
         patient.setEnabled(patientDto.getEnabled());
         return patient;
@@ -65,7 +63,7 @@ public class PatientService {
 
     public PatientDto getPatientById(Long id){
         if (patientRepository.existsById(id)) {
-            PatientDto patientDto = toPatientDto(patientRepository.findById(id).get());
+            PatientDto patientDto = (toPatientDto(patientRepository.findById(id).get()));
             return patientDto;
         }else{ throw new RuntimeException();
         }
@@ -79,6 +77,17 @@ public class PatientService {
             dtoList.add(patientDto);
         }
         return dtoList;
+    }
+
+    public Set<Wound> getAllWoundsFromPatient(Long id){
+        Set<Wound> wounds = getPatientById(id).getWounds();
+        Set<Wound> newWounds = new HashSet<>();
+        for (Wound wound : wounds){
+            if(!newWounds.contains(wound)){
+                newWounds.add(wound);
+            }
+        }
+        return newWounds;
     }
 
     public PatientDto updatePatient(Long id, CreatePatientDto createPatientDto){
@@ -100,21 +109,38 @@ public class PatientService {
 
     public PatientDto addWoundToPatient(Long patientId, CreateWoundDto createWoundDto){
         PatientDto patientDto = getPatientById(patientId);
-        List<Wound> wounds = patientDto.getWounds();
+        Set<Wound> wounds = patientDto.getWounds();
         Wound wound = new Wound();
         wound.setWoundName(createWoundDto.getWoundName());
         wound.setWoundLocation(createWoundDto.getWoundLocation());
         wound.setTreatmentPlan(createWoundDto.getTreatmentPlan());
         wound.setPatient(toPatient(patientDto));
-        wound.setWoundPhotos(createWoundDto.getWoundPhotos());
         woundRepository.save(wound);
         wounds.add(wound);
 //        Wound savedWound = woundRepository.save(wound);
         Patient savedPatient = patientRepository.save(toPatient(patientDto));
         return toPatientDto(savedPatient);
     }
-
-
-
-
+//
+//    public void addExamToWound(Long patientId, Long woundId, CreateWoundExaminationDto dto) {
+//        if (patientRepository.existsById(patientId)) {
+//            PatientDto patientDto = getPatientById(patientId);
+//            Set<Wound> wounds = patientDto.getWounds();
+//            for (Wound w : wounds) {
+//                if (w.getId().equals(woundId)) {
+//                    WoundExamination woundExamination = new WoundExamination();
+//                    woundExamination.setNurseAssessment(dto.getNurseAssessment());
+//                    woundExamination.setWound(w);
+//                    WoundExamination savedWoundExam = woundExaminationRepository
+//                            .save(woundExamination);
+//                    List<WoundExamination> woundExaminations = w.getWoundExaminations();
+//                    woundExaminations.add(savedWoundExam);
+//                    w.setWoundExaminations(woundExaminations);
+//                    woundRepository.save(w);
+//                } else {
+//                    throw new RuntimeException();
+//                }
+//            }
+//        }
+//    }
 }

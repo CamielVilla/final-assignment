@@ -1,9 +1,9 @@
 package nl.novi.assigment.homecare.model.dto;
 
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Wound;
 
 import java.util.List;
+import java.util.Set;
 
 public class PatientDto {
 
@@ -14,7 +14,7 @@ public class PatientDto {
     private String role;
     private int enabled;
     private String password;
-    private List<Wound> wounds;
+    private Set<Wound> wounds;
 
     public String getPassword() {
         return password;
@@ -58,11 +58,11 @@ public class PatientDto {
         this.email = email;
     }
 
-    public List<Wound> getWounds() {
+    public Set<Wound> getWounds() {
         return wounds;
     }
 
-    public void setWounds(List<Wound> wounds) {
+    public void setWounds(Set<Wound> wounds) {
         this.wounds = wounds;
     }
 

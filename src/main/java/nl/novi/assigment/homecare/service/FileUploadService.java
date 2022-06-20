@@ -16,16 +16,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
-public class PhotoService {
+public class FileUploadService {
     @Value("${my.upload_location}")
     private Path fileStoragePath;
     private final String fileStorageLocation;
 
     private final FileUploadRepository fileUploadRepository;
 
-    public PhotoService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileUploadRepository) {
+
+
+    public FileUploadService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileUploadRepository) {
         fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
 
         this.fileStorageLocation = fileStorageLocation;
@@ -41,6 +44,9 @@ public class PhotoService {
 
     public String storeFile(MultipartFile file, String url) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
+//        LocalDate date = LocalDate.now();
+
         Path filePath = Paths.get(fileStoragePath + "/" + fileName);
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -50,6 +56,8 @@ public class PhotoService {
         fileUploadRepository.save(new FileUploadResponse(fileName, file.getContentType(), url));
         return fileName;
     }
+
+
 
     public Resource downLoadFile(String fileName) {
         Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
@@ -66,4 +74,14 @@ public class PhotoService {
         }
     }
 
+    public FileUploadResponse getFileByName (String name){
+        Optional <FileUploadResponse> optionalFileUploadResponse =
+        fileUploadRepository.findByFileName(name);
+
+        if (optionalFileUploadResponse.isPresent()){
+            return  optionalFileUploadResponse.get();
+        }else{
+            throw  new RuntimeException();
+        }
+    }
 }
