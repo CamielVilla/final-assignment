@@ -87,7 +87,9 @@ public class WoundService {
         return woundsToAsses;
     }
 
-
+    public Wound saveWound(Wound wound){
+        return woundRepository.save(wound);
+    }
 
 
 }

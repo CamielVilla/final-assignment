@@ -16,25 +16,12 @@ import java.util.*;
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
-    private final WoundRepository woundRepository;
 
 
-    public PatientService(PatientRepository patientRepository, WoundRepository woundRepository) {
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-        this.woundRepository = woundRepository;
     }
 
-    public PatientDto addPatient(CreatePatientDto createPatientDto) {
-        Patient patient = new Patient();
-        patient.setName(createPatientDto.getName());
-        patient.setDateOfBirth(createPatientDto.getDateOfBirth());
-        patient.setPassword(createPatientDto.getPassword());
-        patient.setEmail(createPatientDto.getEmail());
-        patient.setRole("PATIENT");
-        patient.setEnabled(1);
-        Patient savedPatient = patientRepository.save(patient);
-        return toPatientDto(savedPatient);
-    }
     public PatientDto toPatientDto(Patient patient) {
         PatientDto patientDto = new PatientDto();
         patientDto.setId(patient.getId());
@@ -69,15 +56,6 @@ public class PatientService {
         }
     }
 
-    public List<PatientDto> getAllPatients(){
-        final List<Patient> patientList = patientRepository.findAll();
-        List<PatientDto> dtoList = new ArrayList<>();
-        for(Patient patient : patientList){
-            PatientDto patientDto = toPatientDto(patient);
-            dtoList.add(patientDto);
-        }
-        return dtoList;
-    }
 
     public Set<Wound> getAllWoundsFromPatient(Long id){
         Set<Wound> wounds = getPatientById(id).getWounds();
@@ -87,9 +65,7 @@ public class PatientService {
     public PatientDto updatePatient(Long id, CreatePatientDto createPatientDto){
         if (patientRepository.existsById(id)){
             Patient oldPatient = patientRepository.findById(id).get();
-//            if(createPatientDto.getFile() != null){
-//                oldPatient.setFile(createPatientDto.getFile());
-//            }
+
             if (createPatientDto.getPassword() != null){
                 oldPatient.setPassword(createPatientDto.getPassword());
             }
@@ -98,24 +74,21 @@ public class PatientService {
         }else{
             throw new RuntimeException();
         }
-
     }
 
-    public PatientDto addWoundToPatient(Long patientId, CreateWoundDto createWoundDto){
-        PatientDto patientDto = getPatientById(patientId);
-        Set<Wound> wounds = patientDto.getWounds();
-        Wound wound = new Wound();
-        wound.setWoundName(createWoundDto.getWoundName());
-        wound.setWoundLocation(createWoundDto.getWoundLocation());
-        wound.setTreatmentPlan(createWoundDto.getTreatmentPlan());
-        wound.setPatient(toPatient(patientDto));
-        woundRepository.save(wound);
-        wounds.add(wound);
-//        Wound savedWound = woundRepository.save(wound);
-        Patient savedPatient = patientRepository.save(toPatient(patientDto));
-        return toPatientDto(savedPatient);
+    public Patient savePatient(Patient patient){
+        return patientRepository.save(patient);
     }
 
+    public List<PatientDto> getAllPatients(){
+        final List<Patient> patientList = patientRepository.findAll();
+        List<PatientDto> dtoList = new ArrayList<>();
+        for(Patient patient : patientList){
+            PatientDto patientDto = toPatientDto(patient);
+            dtoList.add(patientDto);
+        }
+        return dtoList;
+    }
 
 //
 //    public void addExamToWound(Long patientId, Long woundId, CreateWoundExaminationDto dto) {

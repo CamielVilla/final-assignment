@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("patients")
 public class PatientController {
@@ -29,14 +29,7 @@ public class PatientController {
         this.woundService = woundService;
     }
 
-    @PostMapping
-    public ResponseEntity<PatientDto> addPatient (@RequestBody CreatePatientDto createPatientDto){
-        final PatientDto patientDto = patientService.addPatient(createPatientDto);
-        final URI location = URI.create("patients" + patientDto.getId());
-        return ResponseEntity
-                .created(location)
-                .body(patientDto);
-    }
+
 
     @GetMapping("{id}")
     ResponseEntity<PatientDto> getPatient (@PathVariable Long id) {
@@ -44,11 +37,7 @@ public class PatientController {
         return ResponseEntity.ok(patientDto);
     }
 
-    @GetMapping
-    ResponseEntity <List<PatientDto>>getAllPatients(){
-        List<PatientDto> patientDtoList = patientService.getAllPatients();
-        return ResponseEntity.ok(patientDtoList);
-    }
+
 //
 //    @PutMapping("{id}")
 //    ResponseEntity<PatientDto> updatePatient(@PathVariable Long id, @RequestBody CreatePatientDto createPatientDto)  {
@@ -56,17 +45,11 @@ public class PatientController {
 //        return ResponseEntity.ok(patientService.getPatientById(id));
 //    }
 //
-    @PostMapping("{id}/wound")
-    public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
-        PatientDto patientDto = patientService.getPatientById(id);
-        patientService.addWoundToPatient(patientDto.getId(), createWoundDto);
-        return ResponseEntity.ok(patientDto);
-    }
 
 
 
     @GetMapping("{id}/wounds")
-    public ResponseEntity<Set<Wound>> getAllWounds (@PathVariable Long id){
+    public ResponseEntity<Set<Wound>> getAllWoundsFromPatient (@PathVariable Long id){
        return ResponseEntity.ok(patientService.getAllWoundsFromPatient(id));
     }
 }
