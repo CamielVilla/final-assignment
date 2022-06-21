@@ -1,5 +1,7 @@
 package nl.novi.assigment.homecare.model.dto;
 
+import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
+import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
 
 import java.time.LocalDate;
@@ -13,6 +15,15 @@ public class WoundExaminationDto {
     private String patientComment;
     private LocalDate photoDate;
     private Wound wound;
+    private FileUploadResponse file;
+
+    public FileUploadResponse getFile() {
+        return file;
+    }
+
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
+    }
 
     public Long getId() {
         return id;

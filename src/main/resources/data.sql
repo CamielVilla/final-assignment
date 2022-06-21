@@ -24,6 +24,10 @@ VALUES(2000, 'pleister vervangen', 'linker knie', 'schaafwond', 1002);
 
 INSERT INTO public.wound(id, treatment_plan, wound_location, wound_name, patient_id)
 VALUES(2001, 'pleister vervangen en daarna spoelen', 'hoofd', 'snijwond', 1002);
+--
+-- INSERT INTO public.wound_examination(
+--     id, assessment_date, nurse_assessment, patient_comment, photo_date, file_file_name, wound_id)
+-- VALUES (3000, null, null, null, null, null, 2000);
 
 -- INSERT INTO public.wound_examination(id, assessment_date, nurse_assessment, patient_comment, photo_date, file_file_name, wound_id)
 -- VALUES(3000,'2022-05-31T11:26:02.714784', 'ga zo door', 'ging goed', '2022-05-31T11:26:02.714784', null, 2000 )

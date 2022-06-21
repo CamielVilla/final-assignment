@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
+import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
@@ -12,8 +13,7 @@ import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class WoundService {
@@ -66,7 +66,6 @@ public class WoundService {
             WoundExamination woundExamination = new WoundExamination();
             woundExamination.setWound(toWound(woundDto));
             woundExamination.setPhotoDate(LocalDate.now());
-
             woundExamination.setFile(photo);
 
             woundExaminationService.saveWoundExamination(woundExamination);
@@ -76,4 +75,19 @@ public class WoundService {
             woundRepository.save(toWound(woundDto));
         }
     }
+
+    public Set<WoundDto> getWoundsToAsses () {
+        List<WoundExaminationDto> dtos = woundExaminationService.getAllWoundExamination();
+        Set<WoundDto> woundsToAsses = new HashSet<>();
+        for (WoundExaminationDto w : dtos) {
+            if (w.getFile() != null && w.getNurseAssessment() == null) {
+                woundsToAsses.add(toWoundDto(w.getWound()));
+            }
+        }
+        return woundsToAsses;
+    }
+
+
+
+
 }

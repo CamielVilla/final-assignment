@@ -7,6 +7,9 @@ import nl.novi.assigment.homecare.model.entity.Nurse;
 import nl.novi.assigment.homecare.repository.NurseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class NurseService {
 
@@ -38,6 +41,15 @@ public class NurseService {
         nurseDto.setRole(nurse.getRole());
         nurseDto.setEnabled(nurse.getEnabled());
         return nurseDto;
+    }
+
+    public List<NurseDto> getAllNurses(){
+       List<Nurse> nurses = nurseRepository.findAll();
+       List<NurseDto> dtos = new ArrayList<>();
+       for (Nurse n: nurses){
+           dtos.add(toNurseDto(n));
+       }
+       return dtos;
     }
 
 
