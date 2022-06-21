@@ -81,13 +81,7 @@ public class PatientService {
 
     public Set<Wound> getAllWoundsFromPatient(Long id){
         Set<Wound> wounds = getPatientById(id).getWounds();
-        Set<Wound> newWounds = new HashSet<>();
-        for (Wound wound : wounds){
-            if(!newWounds.contains(wound)){
-                newWounds.add(wound);
-            }
-        }
-        return newWounds;
+        return wounds;
     }
 
     public PatientDto updatePatient(Long id, CreatePatientDto createPatientDto){
@@ -121,6 +115,8 @@ public class PatientService {
         Patient savedPatient = patientRepository.save(toPatient(patientDto));
         return toPatientDto(savedPatient);
     }
+
+
 //
 //    public void addExamToWound(Long patientId, Long woundId, CreateWoundExaminationDto dto) {
 //        if (patientRepository.existsById(patientId)) {

@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Set;
+
 @RestController
 @CrossOrigin
 @RequestMapping("wounds")
@@ -25,7 +27,7 @@ public class WoundController {
         this.woundExaminationService = woundExaminationService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<WoundDto> getWoundById(@PathVariable Long id){
        return ResponseEntity.ok(woundService.getWoundById(id));
     }
@@ -36,6 +38,12 @@ public class WoundController {
                 FileUploadResponse photo = photoController.singleFileUpload(file);
                 woundService.addPhotoToWound(photo.getFileName(), id);
     }
+
+    @GetMapping("toassess")
+    public ResponseEntity<Set<WoundDto>> getWoundsToAsses (){
+        return ResponseEntity.ok(woundService.getWoundsToAsses());
+    }
+
 
 }
 

@@ -13,8 +13,7 @@ import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class WoundExaminationService {
@@ -34,6 +33,7 @@ public class WoundExaminationService {
         woundExaminationDto.setPatientComment(woundExamination.getPatientComment());
         woundExaminationDto.setPhotoDate(woundExamination.getPhotoDate());
         woundExaminationDto.setWound(woundExamination.getWound());
+        woundExaminationDto.setFile(woundExamination.getFile());
         return woundExaminationDto;
     }
 
@@ -45,6 +45,7 @@ public class WoundExaminationService {
         woundExamination.setPatientComment(dto.getPatientComment());
         woundExamination.setPhotoDate(dto.getPhotoDate());
         woundExamination.setWound(dto.getWound());
+        woundExamination.setFile(dto.getFile());
         return woundExamination;
     }
 
@@ -52,6 +53,14 @@ public class WoundExaminationService {
        return woundExaminationRepository.save(woundExamination);
     }
 
+    public List<WoundExaminationDto> getAllWoundExamination (){
+       List<WoundExamination> woundExaminations = woundExaminationRepository.findAll();
+       List<WoundExaminationDto> dtos = new ArrayList<>();
+       for (WoundExamination w : woundExaminations){
+           dtos.add(toWoundExaminationDto(w));
+       }
+       return dtos;
+    }
 
 
 

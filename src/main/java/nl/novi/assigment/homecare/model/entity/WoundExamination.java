@@ -18,14 +18,15 @@ import java.time.LocalDateTime;
         private String patientComment;
         private LocalDate photoDate;
 
-         @ManyToOne
          @JsonIgnore
+         @ManyToOne
          @JoinColumn (name = "wound_id")
          private Wound wound;
 
 
          @OneToOne
          FileUploadResponse file;
+
 
     public WoundExamination() {
     }
