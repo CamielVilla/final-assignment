@@ -1,17 +1,29 @@
 package nl.novi.assigment.homecare.service;
 
-import nl.novi.assigment.homecare.model.dto.AdminDto;
-import nl.novi.assigment.homecare.model.dto.CreateAdminDto;
+import nl.novi.assigment.homecare.model.dto.*;
 import nl.novi.assigment.homecare.model.entity.Admin;
+import nl.novi.assigment.homecare.model.entity.Nurse;
+import nl.novi.assigment.homecare.model.entity.Patient;
+import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.repository.AdminRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class AdminService {
  private final AdminRepository adminRepository;
+ private final PatientService patientService;
+ private final WoundService woundService;
+ private final NurseService nurseService;
 
-    public AdminService(AdminRepository adminRepository) {
+    public AdminService(AdminRepository adminRepository, PatientService patientService, WoundService woundService, NurseService nurseService) {
         this.adminRepository = adminRepository;
+        this.patientService = patientService;
+        this.woundService = woundService;
+        this.nurseService = nurseService;
     }
 
     public AdminDto createAdmin(CreateAdminDto createAdminDto) {
@@ -35,5 +47,53 @@ public class AdminService {
         adminDto.setRole(admin.getRole());
         return adminDto;
     }
+    public PatientDto addPatient(CreatePatientDto createPatientDto) {
+        Patient patient = new Patient();
+        patient.setName(createPatientDto.getName());
+        patient.setDateOfBirth(createPatientDto.getDateOfBirth());
+        patient.setPassword(createPatientDto.getPassword());
+        patient.setEmail(createPatientDto.getEmail());
+        patient.setRole("PATIENT");
+        patient.setEnabled(1);
+        Patient savedPatient = patientService.savePatient(patient);
+        return patientService.toPatientDto(savedPatient);
+    }
+
+    public List<PatientDto> getAllPatients(){
+       return patientService.getAllPatients();
+    }
+
+
+    public PatientDto addWoundToPatient(Long patientId, CreateWoundDto createWoundDto){
+        PatientDto patientDto = patientService.getPatientById(patientId);
+        Set<Wound> wounds = patientDto.getWounds();
+        Wound wound = new Wound();
+        wound.setWoundName(createWoundDto.getWoundName());
+        wound.setWoundLocation(createWoundDto.getWoundLocation());
+        wound.setTreatmentPlan(createWoundDto.getTreatmentPlan());
+        wound.setPatient(patientService.toPatient(patientDto));
+        woundService.saveWound(wound);
+        wounds.add(wound);
+        Patient savedPatient =  patientService.savePatient(patientService.toPatient(patientDto));
+        return patientDto;
+    }
+
+    public NurseDto addNurse (CreateNurseDto createNurseDto){
+        Nurse nurse = new Nurse();
+        nurse.setName(createNurseDto.getName());
+        nurse.setBigNumber(createNurseDto.getBigNumber());
+        nurse.setEmail(createNurseDto.getEmail());
+        nurse.setPassword(createNurseDto.getPassword());
+        nurse.setEnabled(1);
+        nurse.setRole("NURSE");
+        Nurse savedNurse = nurseService.saveNurse(nurse);
+        return nurseService.toNurseDto(savedNurse);
+    }
+
+    public List<NurseDto> getAllNurses(){
+        List<NurseDto> nurseDtos = nurseService.getAllNurses();
+        return nurseDtos;
+    }
+
 
 }

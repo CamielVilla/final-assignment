@@ -43,6 +43,24 @@ public class NurseService {
         return nurseDto;
     }
 
+    public Nurse toNurse(NurseDto dto){
+        Nurse nurse = new Nurse();
+        nurse.setName(dto.getName());
+        nurse.setEmail(dto.getEmail());
+        nurse.setId(dto.getId());
+        nurse.setPassword(dto.getPassword());
+        nurse.setBigNumber(dto.getBigNumber());
+        nurse.setRole(dto.getRole());
+        nurse.setEnabled(dto.getEnabled());
+        return nurse;
+    }
+
+    public Nurse saveNurse(Nurse nurse){
+        return nurseRepository.save(nurse);
+    }
+
+
+
     public List<NurseDto> getAllNurses(){
        List<Nurse> nurses = nurseRepository.findAll();
        List<NurseDto> dtos = new ArrayList<>();

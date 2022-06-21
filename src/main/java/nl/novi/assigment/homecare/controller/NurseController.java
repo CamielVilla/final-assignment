@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("nurses")
 public class NurseController {
@@ -18,11 +18,6 @@ public class NurseController {
         this.nurseService = nurseService;
     }
 
-    @PostMapping
-    public ResponseEntity<NurseDto> addNurse (@RequestBody CreateNurseDto createNurseDto) {
-        final NurseDto nurseDto = nurseService.addNurse(createNurseDto);
-        return ResponseEntity.ok(nurseDto);
-    }
 
     @GetMapping
     public ResponseEntity<List<NurseDto>> getAllNurses(){

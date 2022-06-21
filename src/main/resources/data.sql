@@ -4,7 +4,7 @@ VALUES ('admin', 1000, 'admin@homecare.nl', '1', 'Admin1', '$2a$12$uuI98Ue2D7yL5
 
 INSERT INTO public.users(
     user_type, id, email, enabled, name, password, role, big_number, date_of_birth)
-VALUES ('nurse', 1001, 'nurse@homecare.nl', '1', 'Nurse1', '$2a$12$cxwUo5SoXS0nquqGjpB2Uuu3h9mlnZAsbRT64vTyFv/n9DEI7ioAi', 'ADMIN', '12345' , null); --NursePassword
+VALUES ('nurse', 1001, 'nurse@homecare.nl', '1', 'Nurse1', '$2a$12$cxwUo5SoXS0nquqGjpB2Uuu3h9mlnZAsbRT64vTyFv/n9DEI7ioAi', 'NURSE', '12345' , null); --NursePassword
 
 INSERT INTO public.users(
     user_type, id, email, enabled, name, password, role, big_number, date_of_birth)
