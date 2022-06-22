@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("login")
 public class AuthorityController {
@@ -22,7 +22,7 @@ public class AuthorityController {
     @Autowired
     JwtService jwtService;
 
-    @CrossOrigin
+
     @PostMapping()
     public ResponseEntity<Object> signIn(@RequestBody AuthorityDto authorityDto) {
         UsernamePasswordAuthenticationToken up =

@@ -2,8 +2,10 @@ package nl.novi.assigment.homecare.controller;
 
 
 import nl.novi.assigment.homecare.model.dto.*;
+import nl.novi.assigment.homecare.model.entity.User;
 import nl.novi.assigment.homecare.service.AdminService;
 import nl.novi.assigment.homecare.service.PatientService;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +60,6 @@ public class AdminController {
         final NurseDto nurseDto = adminService.addNurse(createNurseDto);
         return ResponseEntity.ok(nurseDto);
     }
+
 
 }

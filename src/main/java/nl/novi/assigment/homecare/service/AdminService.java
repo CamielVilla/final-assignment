@@ -59,9 +59,6 @@ public class AdminService {
         return patientService.toPatientDto(savedPatient);
     }
 
-    public List<PatientDto> getAllPatients(){
-       return patientService.getAllPatients();
-    }
 
 
     public PatientDto addWoundToPatient(Long patientId, CreateWoundDto createWoundDto){
@@ -91,8 +88,19 @@ public class AdminService {
     }
 
     public List<NurseDto> getAllNurses(){
-        List<NurseDto> nurseDtos = nurseService.getAllNurses();
-        return nurseDtos;
+        return nurseService.getAllNurses();
+    }
+    public List<PatientDto> getAllPatients(){
+        return patientService.getAllPatients();
+    }
+
+    public List<AdminDto> getAllAdmins(){
+        List<AdminDto> adminDtos = new ArrayList<>();
+        List <Admin> admins = adminRepository.findAll();
+        for(Admin a : admins){
+            adminDtos.add(toAdminDto(a));
+        }
+        return adminDtos;
     }
 
 
