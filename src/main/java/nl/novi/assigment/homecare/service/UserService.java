@@ -10,9 +10,20 @@ import java.util.List;
 
 @Service
 
-public class UserService {
+public class UserService  {
 
     private final UserRepository userRepository;
+
+
+//    @Override
+//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+//        return loadUser(s);
+//    }
+
+
+
+
+
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,7 +41,7 @@ public class UserService {
 
 
     public List<UserDto> getAllUsers(){
-    List<User> users = userRepository.findAllUser();
+    List<User> users = userRepository.findAllUsers();
     List<UserDto> dtos = new ArrayList<>();
     for (User u : users){
         dtos.add(toUserDto(u));

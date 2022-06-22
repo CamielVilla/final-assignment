@@ -1,5 +1,7 @@
 package nl.novi.assigment.homecare.filter;
 
+import nl.novi.assigment.homecare.model.entity.User;
+import nl.novi.assigment.homecare.repository.UserRepository;
 import nl.novi.assigment.homecare.service.JwtService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -23,9 +26,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
-    public JwtRequestFilter(JwtService jwtService, UserDetailsService udService) {
+
+    public JwtRequestFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
         this.jwtService = jwtService;
-        this.userDetailsService = udService;
     }
 
     @Override
@@ -46,6 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         if (username != null &&
                 SecurityContextHolder.getContext().getAuthentication() == null) {
+
             UserDetails userDetails =
                     this.userDetailsService.loadUserByUsername(username);
             if (jwtService.validateToken(jwt, userDetails)) {
