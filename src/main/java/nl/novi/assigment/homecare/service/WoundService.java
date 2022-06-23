@@ -76,6 +76,9 @@ public class WoundService {
         }
     }
 
+
+
+
     public Set<WoundDto> getWoundsToAsses () {
         List<WoundExaminationDto> dtos = woundExaminationService.getAllWoundExamination();
         Set<WoundDto> woundsToAsses = new HashSet<>();
@@ -90,6 +93,7 @@ public class WoundService {
     public Wound saveWound(Wound wound){
         return woundRepository.save(wound);
     }
+
 
 
 }

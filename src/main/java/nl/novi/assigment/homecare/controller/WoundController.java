@@ -39,6 +39,9 @@ public class WoundController {
                 woundService.addPhotoToWound(photo.getFileName(), id);
     }
 
+
+
+
     @GetMapping("toassess")
     public ResponseEntity<Set<WoundDto>> getWoundsToAsses (){
         return ResponseEntity.ok(woundService.getWoundsToAsses());

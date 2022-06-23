@@ -62,6 +62,20 @@ public class WoundExaminationService {
        return dtos;
     }
 
+    public WoundExaminationDto getWoundExaminationById (Long id){
+        if (woundExaminationRepository.existsById(id)){
+            return toWoundExaminationDto(woundExaminationRepository.findById(id).get());
+        }else{
+            throw new RuntimeException();
+        }
+    }
+
+    public void addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
+        WoundExaminationDto dto = getWoundExaminationById(examId);
+        dto.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
+        saveWoundExamination(toWoundExamination(dto));
+    }
+
 
 
 }

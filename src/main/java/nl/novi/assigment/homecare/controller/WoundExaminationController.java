@@ -30,4 +30,10 @@ public class WoundExaminationController {
     }
 
 
+    @PutMapping("{id}/assessment")
+    public void addAssessmentToWound (@PathVariable Long id, @RequestBody CreateWoundExaminationDto dto){
+        woundExaminationService.addAssessmentToWound(id, dto);
+    }
+
+
 }
