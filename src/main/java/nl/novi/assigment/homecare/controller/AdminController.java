@@ -44,8 +44,12 @@ public class AdminController {
 
     @GetMapping("patients")
     ResponseEntity <List<PatientDto>>getAllPatients(){
-        List<PatientDto> patientDtoList = adminService.getAllPatients();
-        return ResponseEntity.ok(patientDtoList);
+        return ResponseEntity.ok(adminService.getAllPatients());
+    }
+
+    @GetMapping("nurses")
+    ResponseEntity <List<NurseDto>> getAllNurses(){
+        return ResponseEntity.ok(adminService.getAllNurses());
     }
 
     @PostMapping("{id}/addwound")
