@@ -3,6 +3,7 @@ package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
 import nl.novi.assigment.homecare.model.dto.WoundDto;
+import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.service.WoundExaminationService;
 import nl.novi.assigment.homecare.service.WoundService;
@@ -34,10 +35,18 @@ public class WoundController {
 
 
     @PostMapping("{id}/photo")
-    public void addPhoto (@PathVariable Long id, @RequestBody MultipartFile file){
+    public ResponseEntity<WoundExaminationDto> addPhoto (@PathVariable Long id, @RequestBody MultipartFile file){
                 FileUploadResponse photo = photoController.singleFileUpload(file);
-                woundService.addPhotoToWound(photo.getFileName(), id);
+              return  ResponseEntity.ok(woundService.addPhotoToWound(photo.getFileName(), id));
+
+
     }
+
+        @PutMapping("/assessment/{id}/{examId}/")
+    public ResponseEntity<WoundExaminationDto> addAssessmentToWound (@PathVariable Long id, @PathVariable Long examId,  @RequestBody CreateWoundExaminationDto dto){
+        return ResponseEntity.ok(woundService.addAssessmentToWound(examId, dto));
+    }
+
 
 
 

@@ -55,7 +55,7 @@ public class WoundService {
     }
 
 
-    public void addPhotoToWound(String name, Long woundId) {
+    public WoundExaminationDto addPhotoToWound(String name, Long woundId) {
 
         FileUploadResponse photo = fileUploadService.getFileByName(name);
 
@@ -73,8 +73,19 @@ public class WoundService {
             woundExaminations.add(woundExamination);
             woundDto.setWoundExaminations(woundExaminations);
             woundRepository.save(toWound(woundDto));
-        }
+            return woundExaminationService.toWoundExaminationDto(woundExamination);
+        }else throw new RuntimeException();
     }
+
+        public WoundExaminationDto addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
+        WoundExaminationDto dto = woundExaminationService.getWoundExaminationById(examId);
+        WoundDto woundDto = toWoundDto(dto.getWound());
+        dto.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
+        woundExaminationService.saveWoundExamination(woundExaminationService.toWoundExamination(dto));
+        woundRepository.save(toWound(woundDto));
+        return dto;
+    }
+
 
 
 

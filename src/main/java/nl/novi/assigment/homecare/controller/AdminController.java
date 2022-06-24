@@ -52,7 +52,8 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllNurses());
     }
 
-    @PostMapping("{id}/addwound")
+    @CrossOrigin
+    @PostMapping("addwound/{id}")
     public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
         PatientDto patientDto = patientService.getPatientById(id);
         adminService.addWoundToPatient(patientDto.getId(), createWoundDto);

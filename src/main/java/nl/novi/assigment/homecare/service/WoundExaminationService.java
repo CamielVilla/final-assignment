@@ -70,12 +70,6 @@ public class WoundExaminationService {
         }
     }
 
-    public void addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
-        WoundExaminationDto dto = getWoundExaminationById(examId);
-        dto.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
-        saveWoundExamination(toWoundExamination(dto));
-    }
-
 
 
 }

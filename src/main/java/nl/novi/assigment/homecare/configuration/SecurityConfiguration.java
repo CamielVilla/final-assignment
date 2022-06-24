@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -75,7 +76,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.POST, "/login/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/users/").permitAll()
+                .authorizeRequests().antMatchers("/users/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.GET, "/wounds/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/woundexaminations/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers( "/admin/addwound/**").hasAnyAuthority("ADMIN", "NURSE")
                 .and()
                 .authorizeRequests().antMatchers("/admin/patients/").hasAnyAuthority("ADMIN", "NURSE")
                 .and()
@@ -83,15 +90,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/admin/addnurse").hasAuthority("ADMIN")
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/admin/{id}/addwound").hasAnyAuthority("ADMIN", "NURSE")
-                .and()
                 .authorizeRequests().antMatchers("/admin/nurses").hasAuthority("ADMIN")
                 .and()
                 .authorizeRequests().antMatchers( HttpMethod.GET, "/wounds/toassess").hasAuthority("NURSE")
                 .and()
-                .authorizeRequests().antMatchers(HttpMethod.GET, "/wounds").permitAll()
-                .and()
                 .authorizeRequests().antMatchers( HttpMethod.POST, "/wounds/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers(HttpMethod.PUT, "/wounds/**").hasAnyAuthority("ADMIN", "NURSE")
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/download/**").permitAll()
                 .and()
@@ -102,4 +107,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtRequestFilter(jwtService, userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
     }
+
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 }

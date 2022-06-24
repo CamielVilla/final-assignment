@@ -44,6 +44,7 @@ public class PatientService {
         patient.setWounds(patientDto.getWounds());
         patient.setRole(patientDto.getRole());
         patient.setEnabled(patientDto.getEnabled());
+        patient.setPassword(patientDto.getPassword());
         return patient;
     }
 
