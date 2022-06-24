@@ -55,7 +55,7 @@ public class WoundService {
     }
 
 
-    public void addPhotoToWound(String name, Long woundId) {
+    public WoundExaminationDto addPhotoToWound(String name, Long woundId) {
 
         FileUploadResponse photo = fileUploadService.getFileByName(name);
 
@@ -73,8 +73,30 @@ public class WoundService {
             woundExaminations.add(woundExamination);
             woundDto.setWoundExaminations(woundExaminations);
             woundRepository.save(toWound(woundDto));
-        }
+            return woundExaminationService.toWoundExaminationDto(woundExamination);
+        }else throw new RuntimeException();
     }
+
+        public List<WoundExaminationDto> addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
+        WoundExaminationDto dto = woundExaminationService.getWoundExaminationById(examId);
+        WoundDto woundDto = toWoundDto(dto.getWound());
+        dto.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
+        woundExaminationService.saveWoundExamination(woundExaminationService.toWoundExamination(dto));
+        woundRepository.save(toWound(woundDto));
+        return getAllWoundExamDtosFromWound(woundDto.getId());
+    }
+
+    public List<WoundExaminationDto> getAllWoundExamDtosFromWound(Long woundId){
+        WoundDto dto = getWoundById(woundId);
+        List<WoundExaminationDto> dtos = new ArrayList<>();
+        List<WoundExamination> woundExaminations = dto.getWoundExaminations();
+        for (WoundExamination w : woundExaminations){
+            dtos.add(woundExaminationService.toWoundExaminationDto(w));
+        }return dtos;
+    }
+
+
+
 
     public Set<WoundDto> getWoundsToAsses () {
         List<WoundExaminationDto> dtos = woundExaminationService.getAllWoundExamination();
@@ -90,6 +112,7 @@ public class WoundService {
     public Wound saveWound(Wound wound){
         return woundRepository.save(wound);
     }
+
 
 
 }

@@ -2,8 +2,10 @@ package nl.novi.assigment.homecare.controller;
 
 
 import nl.novi.assigment.homecare.model.dto.*;
+import nl.novi.assigment.homecare.model.entity.User;
 import nl.novi.assigment.homecare.service.AdminService;
 import nl.novi.assigment.homecare.service.PatientService;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,11 +44,16 @@ public class AdminController {
 
     @GetMapping("patients")
     ResponseEntity <List<PatientDto>>getAllPatients(){
-        List<PatientDto> patientDtoList = adminService.getAllPatients();
-        return ResponseEntity.ok(patientDtoList);
+        return ResponseEntity.ok(adminService.getAllPatients());
     }
 
-    @PostMapping("{id}/addwound")
+    @GetMapping("nurses")
+    ResponseEntity <List<NurseDto>> getAllNurses(){
+        return ResponseEntity.ok(adminService.getAllNurses());
+    }
+
+    @CrossOrigin
+    @PostMapping("addwound/{id}")
     public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
         PatientDto patientDto = patientService.getPatientById(id);
         adminService.addWoundToPatient(patientDto.getId(), createWoundDto);
@@ -58,5 +65,6 @@ public class AdminController {
         final NurseDto nurseDto = adminService.addNurse(createNurseDto);
         return ResponseEntity.ok(nurseDto);
     }
+
 
 }

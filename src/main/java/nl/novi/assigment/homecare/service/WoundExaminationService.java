@@ -62,6 +62,14 @@ public class WoundExaminationService {
        return dtos;
     }
 
+    public WoundExaminationDto getWoundExaminationById (Long id){
+        if (woundExaminationRepository.existsById(id)){
+            return toWoundExaminationDto(woundExaminationRepository.findById(id).get());
+        }else{
+            throw new RuntimeException();
+        }
+    }
+
 
 
 }

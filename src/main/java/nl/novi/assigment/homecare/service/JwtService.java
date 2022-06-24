@@ -3,17 +3,26 @@ package nl.novi.assigment.homecare.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import nl.novi.assigment.homecare.model.entity.User;
+import nl.novi.assigment.homecare.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 
 @Service
-public class JwtService {
+public class JwtService  {
+
+
+    private final UserRepository userRepository;
+
+    public JwtService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     private final static String SECRET_KEY = "ditisdesecretkeyvanhomecare";
 
     public String extractUsername(String token) {
@@ -40,17 +49,27 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
-    }
+            Map<String, Object> claims = new HashMap<>();
+            Optional<User> optionalUser = userRepository.findUserByEmail(userDetails.getUsername());
+            User user = optionalUser.get();
+            Long id = user.getId();
+            String userId = id.toString();
+            String role = user.getRole();
+            return createToken(claims, userDetails.getUsername(), userId, role);
+        }
+
+
     private String createToken(Map<String, Object> claims, String
-            subject) {
+            subject, String id, String role) {
         long validPeriod = 1000 * 60 * 60 * 24;
         long currentTime = System.currentTimeMillis();
+
         return Jwts.builder()
                 .setClaims(claims)
+                .setId(id)
                 .setSubject(subject)
                 .setIssuedAt(new Date(currentTime))
+                .setAudience(role)
                 .setExpiration(new Date(currentTime + validPeriod))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();

@@ -6,6 +6,9 @@ import nl.novi.assigment.homecare.model.entity.Nurse;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,12 +21,14 @@ public class AdminService {
  private final PatientService patientService;
  private final WoundService woundService;
  private final NurseService nurseService;
+private final PasswordEncoder passwordEncoder;
 
-    public AdminService(AdminRepository adminRepository, PatientService patientService, WoundService woundService, NurseService nurseService) {
+    public AdminService(AdminRepository adminRepository, PatientService patientService, WoundService woundService, NurseService nurseService, PasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
         this.patientService = patientService;
         this.woundService = woundService;
         this.nurseService = nurseService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public AdminDto createAdmin(CreateAdminDto createAdminDto) {
@@ -51,7 +56,7 @@ public class AdminService {
         Patient patient = new Patient();
         patient.setName(createPatientDto.getName());
         patient.setDateOfBirth(createPatientDto.getDateOfBirth());
-        patient.setPassword(createPatientDto.getPassword());
+        patient.setPassword(passwordEncoder.encode(createPatientDto.getPassword()));
         patient.setEmail(createPatientDto.getEmail());
         patient.setRole("PATIENT");
         patient.setEnabled(1);
@@ -59,9 +64,6 @@ public class AdminService {
         return patientService.toPatientDto(savedPatient);
     }
 
-    public List<PatientDto> getAllPatients(){
-       return patientService.getAllPatients();
-    }
 
 
     public PatientDto addWoundToPatient(Long patientId, CreateWoundDto createWoundDto){
@@ -91,8 +93,19 @@ public class AdminService {
     }
 
     public List<NurseDto> getAllNurses(){
-        List<NurseDto> nurseDtos = nurseService.getAllNurses();
-        return nurseDtos;
+        return nurseService.getAllNurses();
+    }
+    public List<PatientDto> getAllPatients(){
+        return patientService.getAllPatients();
+    }
+
+    public List<AdminDto> getAllAdmins(){
+        List<AdminDto> adminDtos = new ArrayList<>();
+        List <Admin> admins = adminRepository.findAll();
+        for(Admin a : admins){
+            adminDtos.add(toAdminDto(a));
+        }
+        return adminDtos;
     }
 
 
