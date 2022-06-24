@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -43,8 +44,14 @@ public class WoundController {
     }
 
         @PutMapping("/assessment/{id}/{examId}/")
-    public ResponseEntity<WoundExaminationDto> addAssessmentToWound (@PathVariable Long id, @PathVariable Long examId,  @RequestBody CreateWoundExaminationDto dto){
+    public ResponseEntity<List<WoundExaminationDto>> addAssessmentToWound (@PathVariable Long id, @PathVariable Long examId, @RequestBody CreateWoundExaminationDto dto){
         return ResponseEntity.ok(woundService.addAssessmentToWound(examId, dto));
+    }
+
+    @GetMapping("{id}/exams")
+    public ResponseEntity<List<WoundExaminationDto>> getAllWoundExamsFromWound (@PathVariable Long id){
+
+       return ResponseEntity.ok(woundService.getAllWoundExamDtosFromWound(id));
     }
 
 

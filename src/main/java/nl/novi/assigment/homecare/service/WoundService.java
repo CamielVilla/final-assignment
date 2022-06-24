@@ -77,15 +77,23 @@ public class WoundService {
         }else throw new RuntimeException();
     }
 
-        public WoundExaminationDto addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
+        public List<WoundExaminationDto> addAssessmentToWound (Long examId, CreateWoundExaminationDto createWoundExaminationDto){
         WoundExaminationDto dto = woundExaminationService.getWoundExaminationById(examId);
         WoundDto woundDto = toWoundDto(dto.getWound());
         dto.setNurseAssessment(createWoundExaminationDto.getNurseAssessment());
         woundExaminationService.saveWoundExamination(woundExaminationService.toWoundExamination(dto));
         woundRepository.save(toWound(woundDto));
-        return dto;
+        return getAllWoundExamDtosFromWound(woundDto.getId());
     }
 
+    public List<WoundExaminationDto> getAllWoundExamDtosFromWound(Long woundId){
+        WoundDto dto = getWoundById(woundId);
+        List<WoundExaminationDto> dtos = new ArrayList<>();
+        List<WoundExamination> woundExaminations = dto.getWoundExaminations();
+        for (WoundExamination w : woundExaminations){
+            dtos.add(woundExaminationService.toWoundExaminationDto(w));
+        }return dtos;
+    }
 
 
 
