@@ -76,7 +76,7 @@ private final PasswordEncoder passwordEncoder;
         wound.setPatient(patientService.toPatient(patientDto));
         woundService.saveWound(wound);
         wounds.add(wound);
-        Patient savedPatient =  patientService.savePatient(patientService.toPatient(patientDto));
+        patientService.savePatient(patientService.toPatient(patientDto));
         return patientDto;
     }
 
@@ -85,7 +85,7 @@ private final PasswordEncoder passwordEncoder;
         nurse.setName(createNurseDto.getName());
         nurse.setBigNumber(createNurseDto.getBigNumber());
         nurse.setEmail(createNurseDto.getEmail());
-        nurse.setPassword(createNurseDto.getPassword());
+        nurse.setPassword(passwordEncoder.encode(createNurseDto.getPassword()));
         nurse.setEnabled(1);
         nurse.setRole("NURSE");
         Nurse savedNurse = nurseService.saveNurse(nurse);

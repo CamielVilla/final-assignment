@@ -1,14 +1,10 @@
 package nl.novi.assigment.homecare.service;
 
 import nl.novi.assigment.homecare.model.dto.*;
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
-import nl.novi.assigment.homecare.model.entity.WoundExamination;
-import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.PatientRepository;
-import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
-import nl.novi.assigment.homecare.repository.WoundRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,10 +12,11 @@ import java.util.*;
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
+    private final PasswordEncoder passwordEncoder;
 
-
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, PasswordEncoder passwordEncoder) {
         this.patientRepository = patientRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public PatientDto toPatientDto(Patient patient) {
@@ -63,19 +60,7 @@ public class PatientService {
         return wounds;
     }
 
-    public PatientDto updatePatient(Long id, CreatePatientDto createPatientDto){
-        if (patientRepository.existsById(id)){
-            Patient oldPatient = patientRepository.findById(id).get();
 
-            if (createPatientDto.getPassword() != null){
-                oldPatient.setPassword(createPatientDto.getPassword());
-            }
-            Patient savedPatient = patientRepository.save(oldPatient);
-            return toPatientDto(savedPatient);
-        }else{
-            throw new RuntimeException();
-        }
-    }
 
     public Patient savePatient(Patient patient){
         return patientRepository.save(patient);

@@ -16,8 +16,7 @@ public class FileUploadResponse {
 
     @OneToOne
     private WoundExamination woundExamination;
-//    private LocalDate photoDate;
-//    private String patientComment;
+
 
 
     public FileUploadResponse(String fileName, String contentType, String url) {
