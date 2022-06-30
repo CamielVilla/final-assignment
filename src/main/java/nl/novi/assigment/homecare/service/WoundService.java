@@ -7,8 +7,6 @@ import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
 import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
-import nl.novi.assigment.homecare.repository.FileUploadRepository;
-import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
 import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
 
@@ -94,7 +92,6 @@ public class WoundService {
             dtos.add(woundExaminationService.toWoundExaminationDto(w));
         }return dtos;
     }
-
 
 
 

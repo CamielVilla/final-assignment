@@ -40,8 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
 
-
-
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();

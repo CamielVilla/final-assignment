@@ -1,5 +1,5 @@
 package nl.novi.assigment.homecare.model.entity;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 

@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
 
 @CrossOrigin
 @RestController
@@ -37,5 +36,4 @@ public class AuthorityController {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .body(token);
     }
-
 }

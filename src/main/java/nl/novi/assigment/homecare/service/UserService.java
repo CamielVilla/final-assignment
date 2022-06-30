@@ -5,7 +5,6 @@ import nl.novi.assigment.homecare.model.entity.User;
 import nl.novi.assigment.homecare.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,5 @@
 package nl.novi.assigment.homecare.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;

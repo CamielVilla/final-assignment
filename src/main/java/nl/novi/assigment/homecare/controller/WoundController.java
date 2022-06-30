@@ -21,12 +21,10 @@ public class WoundController {
 
     private final WoundService woundService;
     private final PhotoController photoController;
-    private final WoundExaminationService woundExaminationService;
 
-    public WoundController(WoundService woundService, PhotoController photoController, WoundExaminationService woundExaminationService) {
+    public WoundController(WoundService woundService, PhotoController photoController) {
         this.woundService = woundService;
         this.photoController = photoController;
-        this.woundExaminationService = woundExaminationService;
     }
 
     @GetMapping("{id}")

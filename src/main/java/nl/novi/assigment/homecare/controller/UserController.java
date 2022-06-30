@@ -5,7 +5,6 @@ import nl.novi.assigment.homecare.model.dto.UserDto;
 import nl.novi.assigment.homecare.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 

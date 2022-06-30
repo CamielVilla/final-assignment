@@ -45,8 +45,6 @@ public class FileUploadService {
     public String storeFile(MultipartFile file, String url) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
-//        LocalDate date = LocalDate.now();
-
         Path filePath = Paths.get(fileStoragePath + "/" + fileName);
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);

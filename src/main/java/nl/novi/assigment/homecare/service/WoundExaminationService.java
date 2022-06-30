@@ -1,18 +1,10 @@
 package nl.novi.assigment.homecare.service;
 
 
-import nl.novi.assigment.homecare.model.dto.CreateWoundExaminationDto;
-import nl.novi.assigment.homecare.model.dto.WoundDto;
 import nl.novi.assigment.homecare.model.dto.WoundExaminationDto;
-import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
-import nl.novi.assigment.homecare.repository.FileUploadRepository;
 import nl.novi.assigment.homecare.repository.WoundExaminationRepository;
-import nl.novi.assigment.homecare.repository.WoundRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
