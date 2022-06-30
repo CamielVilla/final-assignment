@@ -43,7 +43,7 @@ public class WoundController {
 
     }
 
-        @PutMapping("/assessment/{id}/{examId}/")
+        @PutMapping("assessment/{id}/{examId}")
     public ResponseEntity<List<WoundExaminationDto>> addAssessmentToWound (@PathVariable Long id, @PathVariable Long examId, @RequestBody CreateWoundExaminationDto dto){
         return ResponseEntity.ok(woundService.addAssessmentToWound(examId, dto));
     }
@@ -53,9 +53,6 @@ public class WoundController {
 
        return ResponseEntity.ok(woundService.getAllWoundExamDtosFromWound(id));
     }
-
-
-
 
 
     @GetMapping("toassess")

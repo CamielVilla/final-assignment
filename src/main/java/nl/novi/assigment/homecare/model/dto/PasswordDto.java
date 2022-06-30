@@ -1,8 +1,16 @@
 package nl.novi.assigment.homecare.model.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class PasswordDto {
+    @NotNull
     private String oldPassword;
+    @NotNull
+    @Size(min = 6)
     private String newPassword;
+    @NotNull
+    @Size(min = 6)
     private String repeatNewPassword;
 
     public String getOldPassword() {

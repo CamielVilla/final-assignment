@@ -1,10 +1,17 @@
 package nl.novi.assigment.homecare.model.dto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
 public class CreateNurseDto {
 
 
     private String name;
+    @NotNull
+    @Email
     private String email;
+    @NotNull
+    @Size(min = 6)
     private String password;
     private int bigNumber;
 

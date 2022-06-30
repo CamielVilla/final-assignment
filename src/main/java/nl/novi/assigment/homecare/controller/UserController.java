@@ -1,13 +1,12 @@
 package nl.novi.assigment.homecare.controller;
 
 import nl.novi.assigment.homecare.model.dto.PasswordDto;
-import nl.novi.assigment.homecare.model.dto.PatientDto;
 import nl.novi.assigment.homecare.model.dto.UserDto;
-import nl.novi.assigment.homecare.model.entity.User;
 import nl.novi.assigment.homecare.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,9 +29,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping("{id}/password")
-    ResponseEntity<UserDto> updatePatient(@PathVariable Long id, @RequestBody PasswordDto passWordDto)  {
-        userService.updatePatientPassword(id, passWordDto);
+    @PutMapping("{id}/password")
+    ResponseEntity<UserDto> updateUserPassword(@PathVariable Long id, @Valid @RequestBody PasswordDto passWordDto)  {
+        userService.updateUserPassword(id, passWordDto);
         return ResponseEntity.ok(userService.getUserById(id));
     }
 }
