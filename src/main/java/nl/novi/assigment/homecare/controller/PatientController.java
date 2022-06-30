@@ -26,12 +26,6 @@ public class PatientController {
     }
 
 
-
-
-
-
-
-
     @GetMapping("{id}/wounds")
     public ResponseEntity<Set<Wound>> getAllWoundsFromPatient (@PathVariable Long id){
        return ResponseEntity.ok(patientService.getAllWoundsFromPatient(id));

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -24,17 +25,9 @@ public class AdminController {
         this.patientService = patientService;
     }
 
-//    @PostMapping
-//    public ResponseEntity<AdminDto> createAdmin (@RequestBody  CreateAdminDto createAdminDto){
-//        final AdminDto adminDto = adminService.createAdmin(createAdminDto);
-//        final URI location = URI.create("admin");
-//        return ResponseEntity
-//                .created(location)
-//                .body(adminDto);
-//    }
 
     @PostMapping("addpatient")
-    public ResponseEntity<PatientDto> addPatient (@RequestBody CreatePatientDto createPatientDto){
+    public ResponseEntity<PatientDto> addPatient (@Valid @RequestBody CreatePatientDto createPatientDto){
         final PatientDto patientDto = adminService.addPatient(createPatientDto);
         final URI location = URI.create("patients" + patientDto.getId());
         return ResponseEntity
@@ -47,24 +40,26 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllPatients());
     }
 
+    @PostMapping("addnurse")
+    public ResponseEntity<NurseDto> addNurse (@Valid @RequestBody CreateNurseDto createNurseDto) {
+        final NurseDto nurseDto = adminService.addNurse(createNurseDto);
+        return ResponseEntity.ok(nurseDto);
+    }
+
+
     @GetMapping("nurses")
     ResponseEntity <List<NurseDto>> getAllNurses(){
         return ResponseEntity.ok(adminService.getAllNurses());
     }
 
-    @CrossOrigin
+
     @PostMapping("addwound/{id}")
-    public ResponseEntity<PatientDto> addWound (@RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
+    public ResponseEntity<PatientDto> addWound (@Valid @RequestBody CreateWoundDto createWoundDto, @PathVariable Long id) {
         PatientDto patientDto = patientService.getPatientById(id);
         adminService.addWoundToPatient(patientDto.getId(), createWoundDto);
         return ResponseEntity.ok(patientDto);
     }
 
-    @PostMapping("addnurse")
-    public ResponseEntity<NurseDto> addNurse (@RequestBody CreateNurseDto createNurseDto) {
-        final NurseDto nurseDto = adminService.addNurse(createNurseDto);
-        return ResponseEntity.ok(nurseDto);
-    }
 
 
 }

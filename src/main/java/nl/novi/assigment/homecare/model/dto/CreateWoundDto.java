@@ -3,16 +3,18 @@ package nl.novi.assigment.homecare.model.dto;
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
 public class CreateWoundDto {
-
+    @NotNull
     private String treatmentPlan;
+    @NotNull
     private String woundName;
+    @NotNull
     private String woundLocation;
     private Patient patient;
-//    private Long patientId
     private List<WoundExamination> woundExamination;
 
     public List<WoundExamination> getWoundExamination() {

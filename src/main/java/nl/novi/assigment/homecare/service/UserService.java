@@ -1,11 +1,8 @@
 package nl.novi.assigment.homecare.service;
 import nl.novi.assigment.homecare.model.dto.PasswordDto;
-import nl.novi.assigment.homecare.model.dto.PatientDto;
 import nl.novi.assigment.homecare.model.dto.UserDto;
-import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.User;
 import nl.novi.assigment.homecare.repository.UserRepository;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +60,7 @@ public class UserService  {
         }
     }
 
-    public UserDto updatePatientPassword(Long id, PasswordDto dto) {
+    public UserDto updateUserPassword(Long id, PasswordDto dto) {
         User user = userRepository.getById(id);
         if (passwordEncoder.matches(dto.getOldPassword(), user.getPassword()) && dto.getNewPassword().equals(dto.getRepeatNewPassword())) {
             user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
