@@ -1,9 +1,7 @@
 package nl.novi.assigment.homecare.model.dto;
 
 import nl.novi.assigment.homecare.model.entity.FileUploadResponse;
-import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.Wound;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

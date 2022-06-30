@@ -6,17 +6,14 @@ import nl.novi.assigment.homecare.model.entity.Wound;
 import nl.novi.assigment.homecare.repository.PatientRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public PatientService(PatientRepository patientRepository, PasswordEncoder passwordEncoder) {
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public PatientDto toPatientDto(Patient patient) {
@@ -76,26 +73,4 @@ public class PatientService {
         return dtoList;
     }
 
-//
-//    public void addExamToWound(Long patientId, Long woundId, CreateWoundExaminationDto dto) {
-//        if (patientRepository.existsById(patientId)) {
-//            PatientDto patientDto = getPatientById(patientId);
-//            Set<Wound> wounds = patientDto.getWounds();
-//            for (Wound w : wounds) {
-//                if (w.getId().equals(woundId)) {
-//                    WoundExamination woundExamination = new WoundExamination();
-//                    woundExamination.setNurseAssessment(dto.getNurseAssessment());
-//                    woundExamination.setWound(w);
-//                    WoundExamination savedWoundExam = woundExaminationRepository
-//                            .save(woundExamination);
-//                    List<WoundExamination> woundExaminations = w.getWoundExaminations();
-//                    woundExaminations.add(savedWoundExam);
-//                    w.setWoundExaminations(woundExaminations);
-//                    woundRepository.save(w);
-//                } else {
-//                    throw new RuntimeException();
-//                }
-//            }
-//        }
-//    }
 }

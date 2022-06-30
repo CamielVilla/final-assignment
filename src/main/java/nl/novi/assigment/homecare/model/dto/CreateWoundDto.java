@@ -2,7 +2,6 @@ package nl.novi.assigment.homecare.model.dto;
 
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
-
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

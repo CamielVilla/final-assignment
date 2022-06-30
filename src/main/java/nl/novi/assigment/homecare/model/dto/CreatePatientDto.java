@@ -5,7 +5,6 @@ import nl.novi.assigment.homecare.model.entity.Wound;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 public class CreatePatientDto {

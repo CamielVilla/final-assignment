@@ -1,6 +1,5 @@
 package nl.novi.assigment.homecare.model.dto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 public class CreateNurseDto {
@@ -13,6 +12,7 @@ public class CreateNurseDto {
     @NotNull
     @Size(min = 6)
     private String password;
+    @NotNull
     private int bigNumber;
 
     public String getName() {

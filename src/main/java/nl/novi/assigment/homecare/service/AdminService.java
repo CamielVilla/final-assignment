@@ -4,8 +4,6 @@ import nl.novi.assigment.homecare.model.dto.*;
 import nl.novi.assigment.homecare.model.entity.*;
 import nl.novi.assigment.homecare.repository.AdminRepository;
 import nl.novi.assigment.homecare.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -107,6 +105,7 @@ public class AdminService {
     public List<NurseDto> getAllNurses(){
         return nurseService.getAllNurses();
     }
+
     public List<PatientDto> getAllPatients(){
         return patientService.getAllPatients();
     }

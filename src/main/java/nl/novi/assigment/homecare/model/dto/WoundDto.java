@@ -2,9 +2,8 @@ package nl.novi.assigment.homecare.model.dto;
 
 import nl.novi.assigment.homecare.model.entity.Patient;
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
-
 import java.util.List;
-import java.util.Set;
+
 
 public class WoundDto {
     private Long id;

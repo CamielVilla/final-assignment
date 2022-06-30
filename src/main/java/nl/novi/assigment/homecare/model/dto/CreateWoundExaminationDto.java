@@ -2,8 +2,6 @@ package nl.novi.assigment.homecare.model.dto;
 
 import nl.novi.assigment.homecare.model.entity.WoundExamination;
 import nl.novi.assigment.homecare.model.entity.Wound;
-
-
 import java.time.LocalDateTime;
 import java.util.Date;
 
