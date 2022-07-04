@@ -74,8 +74,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET, "/wounds/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/woundexaminations/**").permitAll()
-                .and()
                 .authorizeRequests().antMatchers( "/admin/addwound/**").hasAnyAuthority("ADMIN", "NURSE")
                 .and()
                 .authorizeRequests().antMatchers("/admin/patients/").hasAnyAuthority("ADMIN", "NURSE")
